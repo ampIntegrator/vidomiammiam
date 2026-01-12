@@ -1,0 +1,30 @@
+// Import variables first
+@import '../../styles/scss/myScss/variables';
+
+// Import Nucleo icons for admin icon picker
+@import '../../styles/scss/myScss/icons.scss';
+
+// Export color variables to CSS custom properties for admin components
+:root {
+    --color-primary: #0d6efd;
+    --color-danger: #dc3545;
+    --color-success: #198754;
+    --color-warning: #ffc107;
+    --color-orange: #fd7e14;
+    --color-teal: #20c997;
+    --color-purple: #6f42c1;
+    --color-info: #0dcaf0;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-light: #f8f9fa;
+    --color-dark: #212529;
+
+    // UI/Gray colors
+    --color-gray-100: #f8f9fa;
+    --color-gray-200: #e9ecef;
+    --color-gray-300: #dee2e6;
+    --color-gray-400: #ced4da;
+    --color-gray-500: #adb5bd;
+    --color-gray-600: #6c757d;
+    --color-gray-700: #495057;
+}

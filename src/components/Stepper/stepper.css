@@ -1,0 +1,125 @@
+.stepper {
+  border-radius: 16px;
+  padding: 24px 16px;
+  display: block;
+  background-color: #000000;
+}
+
+.stepper.transparent {
+  display: block;
+  padding: 0;
+  background-color: transparent;
+  width: 100%;
+}
+
+.stepper.transparent .olStepper .stepperItem.active span {
+  background-color: #121b36 !important;
+}
+
+.stepper.center .stepperTitle {
+  text-align: center;
+}
+
+.stepper.center .olStepper {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.stepper.center .stepperDesc {
+  max-width: 640px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center;
+}
+
+.stepper > * {
+  margin: 0;
+}
+
+.stepper > *:nth-child(n+2) {
+  margin-top: 24px !important;
+}
+
+.stepper .stepperTitle {
+  font-weight: 600;
+  font-size: 26px;
+  color: #ffffff;
+}
+
+.stepper .stepperDesc {
+  font-size: 18px;
+  margin-bottom: 0;
+  color: #ffffff;
+}
+
+.stepper .olStepper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  counter-reset: stepper-counter;
+}
+
+.stepper .olStepper .stepperItem {
+  counter-increment: stepper-counter;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+}
+
+.stepper .olStepper .stepperItem:before {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #121b36;
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 18px;
+  content: "\eacb";
+  font-family: Nucleo;
+}
+
+.stepper .olStepper .stepperItem:not(:last-child):after {
+  display: block;
+  content: "";
+  height: 2px;
+  min-width: 40px;
+  background-color: #ffffff;
+  flex: 1;
+}
+
+.stepper .olStepper .stepperItem span {
+  display: none;
+}
+
+.stepper .olStepper .stepperItem.active:before,
+.stepper .olStepper .stepperItem.active ~ .stepperItem:before {
+  content: counter(stepper-counter);
+  font-family: "Sen", sans-serif;
+}
+
+.stepper .olStepper .stepperItem.active {
+  position: relative;
+}
+
+.stepper .olStepper .stepperItem.active:before {
+  background-color: var(--color-green);
+  color: #ffffff;
+}

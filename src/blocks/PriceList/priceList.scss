@@ -1,0 +1,336 @@
+
+// Keyframes for zoom animations
+@keyframes zoomInOut {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+// PriceList container animations
+.priceListContainer {
+    // Animation setup - all cards start hidden from right
+    [class*='animate-queue-'] {
+        opacity: 0;
+        transform: translateX(100px);
+        transition: none;
+    }
+
+    // Internal card elements start hidden from bottom
+    .animate-thumbnail,
+    .animate-header,
+    .animate-body,
+    .animate-footer {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: none;
+    }
+
+    // When visible, trigger queue animations
+    &.animate-in {
+        // Card 1: arrives first from right
+        .animate-queue-0 {
+            animation: queueFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.1s;
+
+            // Internal stacking starts with card movement
+            .animate-thumbnail {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.1s;
+            }
+            .animate-header {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.25s;
+            }
+            .animate-body {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.4s;
+            }
+            .animate-footer {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.55s;
+            }
+        }
+
+        // Card 2: arrives second (pushed by card 1)
+        .animate-queue-1 {
+            animation: queueFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.3s;
+
+            .animate-thumbnail {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.3s;
+            }
+            .animate-header {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.45s;
+            }
+            .animate-body {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.6s;
+            }
+            .animate-footer {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.75s;
+            }
+        }
+
+        // Card 3: arrives third
+        .animate-queue-2 {
+            animation: queueFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.5s;
+
+            .animate-thumbnail {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.5s;
+            }
+            .animate-header {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.65s;
+            }
+            .animate-body {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.8s;
+            }
+            .animate-footer {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.95s;
+            }
+        }
+
+        // Card 4: arrives last
+        .animate-queue-3 {
+            animation: queueFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.7s;
+
+            .animate-thumbnail {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.7s;
+            }
+            .animate-header {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.85s;
+            }
+            .animate-body {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 1s;
+            }
+            .animate-footer {
+                animation: stackFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 1.15s;
+            }
+        }
+    }
+}
+
+// PriceList styles
+.card {
+    height: 100%;
+    position: relative;
+    opacity: 1;
+
+    .card-thumbnail {
+        position: relative;
+        height: 180px;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: inherit;
+            transition: transform 0.6s $cubiTr;
+        }
+    }
+
+    .card-header {
+        background-color: transparent;
+        transition: $trans;
+        > .card-category,
+        > .card-category span{
+            transition: $trans;
+        }
+        .card-category{
+            text-align: center;
+            background-color: white;
+            span{
+                font-size: 16px;
+                text-transform: uppercase;
+                color: $primary;
+                font-weight: 600;
+            }
+        }
+        .card-title{
+            min-height: 84px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px ;
+            margin: 0;
+            padding: 0 8px;
+            background-color: $ivory;
+            color: $secondary;
+        }
+        padding: 0;
+        border: 0;
+
+        * {
+            line-height: 1.2;
+            text-align: center;
+        }
+    }
+
+    .card-body {
+        background-color: white;
+        transition: $trans;
+
+        .pricing-card-title {
+            color: $primary !important;
+            text-align: center;
+            font-size: 28px;
+            transition: transform 0.6s $cubiTr;
+            padding-top: 3px;
+            font-weight: 700;
+            sup{
+                font-weight: 400;
+                font-size: 15px;
+                top: -0.4rem
+            }
+        }
+
+        p {
+            line-height: 1.3;
+            text-align: center;
+            color: $dark;
+            opacity: 0.6;
+        }
+
+        ul {
+            padding: 0px;
+            margin-bottom: 0 !important;
+
+            li {
+                color: $dark;
+                list-style: none;
+                text-align: center;
+                font-size: 16px;
+                &:not(:last-child){
+                    margin-bottom: 4px;
+                }
+            }
+        }
+    }
+
+    .card-footer {
+        border: 0;
+        background-color: $pink;
+        .btn{
+            color: white;
+            font-weight: 600;
+
+        }
+    }
+
+    // Hover effects with zoom animations
+    &:hover {
+        .card-thumbnail::before {
+            animation: zoomInOut 0.8s $cubiTr;
+        }
+
+        .card-body .pricing-card-title {
+            animation: zoomInOut 0.8s $cubiTr;
+        }
+    }
+
+    &.cardSmall {
+        .card-body,
+        .card-footer {
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+        .card-header{
+            padding: 0 !important;
+            > div span{
+                font-size: 15px !important;
+            }
+        }
+        .card-title {
+            font-size: 20px !important;
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+
+        .pricing-card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        p,
+        li {
+            font-size: 14px;
+        }
+
+        .card-header {
+            height: auto;
+            min-height: 90px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+    }
+
+}
+
+
+.card{
+    container-type: inline-size;
+    /* ou juste: container-name: target; si tu veux le nommer */
+}
+
+/* 2. Applique des styles selon SA largeur */
+@container (max-width: 300px) {
+    .card{
+        .card-title{
+            font-size: 22px !important
+        }
+        .card-body{
+            .pricing-card-title{
+                font-size: 20px !important;
+            }
+        }
+    }
+}
+
+// Keyframes for PriceList queue animations
+@keyframes queueFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes stackFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

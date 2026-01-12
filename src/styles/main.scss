@@ -1,0 +1,111 @@
+// FONTS
+@import 'scss/myScss/fonts';
+// IMPORTS - Custom Variables & Utilities First
+@import 'scss/myScss/variables';
+@import 'scss/myScss/utilities';
+
+// BOOTSTRAP - Selective imports (optimized)
+// Core (required)
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+
+// Layout & Grid (heavily used)
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+
+// Components (used in project)
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/button-group';
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/card';
+@import 'bootstrap/scss/accordion';
+@import 'bootstrap/scss/badge';
+@import 'bootstrap/scss/alert';
+@import 'bootstrap/scss/offcanvas';
+
+// Utilities (required)
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/utilities/api';
+
+// CUSTOM COMPONENTS
+@import 'scss/myScss/icons';
+@import 'scss/myScss/box';
+@import 'scss/myScss/offcanvas';
+@import 'scss/myScss/form';
+@import 'scss/myScss/reactSelect';
+@import 'scss/myScss/blog';
+@import 'scss/myScss/post';
+@import 'scss/myScss/sliderLogo';
+
+
+a {
+    cursor: pointer;
+}
+
+body {
+    padding-top: 76px;
+    background-color: $ivory;
+    color: $ink;
+}
+
+.separator {
+    height: 3px;
+    width: 54px;
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $secondary;
+}
+
+.headingWithIcon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    i {
+        font-size: 48px;
+        margin-right: 16px;
+
+    }
+
+    line-height: 1.15;
+    margin-bottom: 24px;
+}
+
+.badgeBox {
+    display: flex;
+    flex-wrap: wrap;
+    .badge {
+        font-family: $font-family-base;
+        font-weight: 400 !important;
+        margin-inline-end: 8px;
+        text-transform: uppercase;
+        font-size: 13px;
+    }
+    + .roundedImg{
+        border-radius: $mainBR;
+        overflow: hidden;
+    }
+}
+
+pre {
+    background-color: $black;
+    border: 1px solid rgba(#d63384, 1);
+    border-radius: $border-radius-md;
+
+    * {
+        color: white !important
+    }
+}
+
+.inputFooter{
+    background-color: $white !important;
+    color: $primary !important
+}

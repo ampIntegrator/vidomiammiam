@@ -1,0 +1,103 @@
+.figureOnTopContainer{
+    .row{
+        > div{
+            min-height: 100%;
+        }
+    }
+
+    // Animation setup - elements start hidden
+    .animate-figure,
+    .animate-title,
+    .animate-text {
+        opacity: 0;
+        transition: none;
+    }
+
+    .animate-title,
+    .animate-text {
+        transform: translateY(20px);
+    }
+
+    // When container is visible, trigger synchronized animations
+    &.animate-in {
+        .animate-figure {
+            animation: fadeInFigure 0.6s ease-out forwards;
+        }
+
+        .animate-title {
+            animation: slideUpStack 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.15s;
+        }
+
+        .animate-text {
+            animation: slideUpStack 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.3s;
+        }
+    }
+
+}
+.figureOnTop {
+    // Style de base pour la figure
+    .figure {
+        font-size: 40px;
+        font-weight: 700;
+        transition: $trans;
+        display: inline-block;
+        color: $secondary;
+    }
+
+    // Style de base pour le titre
+    .figureOnTopTitle {
+        margin: 8px 0 16px;
+        line-height: 1.2;
+        transition: $trans;
+        font-size: 20px;
+    }
+
+
+
+    // Variante .center : centrer la figure et le titre seulement
+    &.center {
+        .figure {
+            display: block;
+            text-align: center;
+        }
+
+        .figureOnTopTitle {
+            text-align: center;
+        }
+    }
+
+}
+
+.bg-primary{
+    .figureOnTopContainer.noInfraBox{
+        .infraBox{
+            .figureOnTopTitle,
+            p{
+                color: white !important
+            }
+        }
+    }
+}
+
+// Keyframes for FigureOnTop animations
+@keyframes fadeInFigure {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpStack {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

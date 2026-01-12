@@ -1,0 +1,253 @@
+// Titre du bloc
+.blogGridTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: $white;
+}
+
+// Container des posts
+.postsContainer {
+  .row {
+    // Comportement carousel sur mobile/tablette
+    @media (max-width: 991px) {
+      overflow: hidden;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+      transition: transform 0.3s ease-out;
+    }
+  }
+
+  .navigation {
+    margin-top: -12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: $trans;
+      height: 32px;
+
+
+      i {
+        font-size: 32px;
+        color: $blue;
+        transition: $trans;
+      }
+
+      &:hover:not(:disabled) i {
+        transform: scale(1.1);
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+
+    .bullets {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+
+      .bullet {
+        width: 12px;
+        height: 12px;
+        border-radius: 6px;
+        background-color: $white;
+        cursor: pointer;
+        transition: $trans;
+
+        &:hover {
+          background-color: rgba($blue, 0.3);
+        }
+
+        &.active {
+          background-color: $blue;
+          width: 24px;
+        }
+      }
+    }
+  }
+
+  // Boucle pour générer les variantes de couleur pour la pagination
+  @each $name, $color in $main-colors {
+    &:has(.blogPost.color#{to-upper-case(str-slice($name, 1, 1))}#{str-slice($name, 2)}) {
+      .navigation {
+        button i {
+          color: $color;
+        }
+
+        .bullets .bullet {
+          &:hover {
+            background-color: rgba($color, 0.3);
+          }
+
+          &.active {
+            background-color: $color;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Composant blogPost
+.blogPost {
+  background-color: $black;
+  border-radius: $mainBR;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+
+  .row {
+    height: 100%;
+  }
+
+  .bgi {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .voirPlus {
+    opacity: 0.5;
+    font-size: 14px;
+    transition: $trans;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    i {
+      font-size: 20px;
+      transition: $trans;
+    }
+  }
+
+  &:hover {
+    .voirPlus {
+      opacity: 1;
+    }
+  }
+
+  // Variante oneCol (compact, 3 par ligne)
+  &.oneCol {
+    height: 220px;
+    background-color: $black;
+
+    p {
+      display: none;
+    }
+
+    .col-4 {
+      position: static;
+      width: 0;
+      height: 0;
+      padding: 0 !important;
+    }
+
+    .col-8 {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 100%;
+
+      .postBlogTitle {
+        height: 72px;
+
+        span {
+          -webkit-line-clamp: 3;
+        }
+      }
+    }
+
+    .bgi {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      opacity: 0.5;
+      transition: $trans;
+    }
+
+    &:hover {
+      .bgi {
+        opacity: 0;
+      }
+    }
+  }
+
+  // Boucle pour générer toutes les variantes de couleur
+  @each $name, $color in $main-colors {
+    &.color#{to-upper-case(str-slice($name, 1, 1))}#{str-slice($name, 2)} {
+
+      // Pour les blogPost normaux (sans .oneCol)
+      &:not(.oneCol) {
+        .postBlogTitle,
+        .voirPlus {
+          color: $color;
+        }
+      }
+
+      // Pour les blogPost.oneCol
+      &.oneCol {
+        strong,
+        small,
+        .voirPlus {
+          color: $color;
+        }
+
+        .postBlogTitle {
+          color: $white;
+        }
+
+        &:hover {
+          background-color: $black;
+        }
+      }
+    }
+  }
+}
+
+// Titre du post
+.postBlogTitle {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin: 4px 0;
+  height: 64px;
+
+  span {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: inherit;
+  }
+}
+
+// Utilitaires
+.flexCSB {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flexCS {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fz14 {
+  font-size: 14px;
+}

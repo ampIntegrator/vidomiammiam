@@ -1,0 +1,49 @@
+.layoutOrderPicker {
+  margin-bottom: 20px;
+
+  .field-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--theme-elevation-900);
+  }
+
+  .dragDropZone {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: var(--theme-elevation-50);
+    border: 1px solid var(--theme-elevation-200);
+    border-radius: 4px;
+    align-items: center;
+
+    .dragItem {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      background: var(--theme-elevation-0);
+      border: 2px solid var(--theme-elevation-400);
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--theme-elevation-900);
+      cursor: move;
+      transition: all 0.2s ease;
+      user-select: none;
+
+      &:hover {
+        background: var(--theme-elevation-100);
+        border-color: var(--theme-elevation-600);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      &:active {
+        cursor: grabbing;
+        transform: scale(0.98);
+      }
+    }
+  }
+}

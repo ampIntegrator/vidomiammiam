@@ -1,0 +1,260 @@
+header {
+  position: fixed;
+  top: 0;
+  background-color: white;
+  width: 100%;
+  z-index: 100;
+  overflow: hidden;
+  transition: $trans;
+
+  .navbar-brand {
+    transition: $trans;
+    span{
+      font-size: 24px;
+      font-weight: 800;
+      position: relative;
+      top: 3px;
+    }
+    .logo {
+      height: 40px;
+      width: auto;
+      transition: $trans;
+      filter: brightness(0) saturate(100%) invert(43%) sepia(92%) saturate(2752%) hue-rotate(323deg) brightness(106%) contrast(101%);
+    }
+  }
+
+  .navbar {
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    &[class*="submenu-color-"] {
+      height: auto;
+    }
+
+    .top {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    #topNavDesk {
+      position: relative;
+      z-index: 10;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .nav-link {
+        padding: 0 8px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        height: 70px;
+        transition: $trans;
+        i{
+          color: $secondary !important;
+        }
+        &:hover,
+        &.active {
+          background-color: rgba($secondary, .1);
+        }
+      }
+    }
+  }
+
+  .underMenu {
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    position: relative;
+    pointer-events: none;
+    .subMenuBorder{
+      height: 3px;
+      background-color: rgba($secondary, .4);
+    }
+    ul{
+      padding: 0 16px 0 0;
+      li{
+        margin-bottom: 8px;
+      }
+      a {
+        display: flex;
+        font-size: 15px;
+        text-decoration: none;
+        color: $ink;
+        padding: 8px;
+        border-radius:8px;
+        transition: $trans;
+        &:hover{
+          background-color: rgba($primary, .05);
+        }
+        i{
+          color: $secondary;
+          font-size: 24px;
+          margin-right: 8px;
+        }
+        strong{
+          font-weight: 500;
+          display: block;
+          margin-bottom: 4px;
+          margin-top: -4px;
+        }
+        span{
+          opacity: 0.8;
+        }
+      }
+    }
+
+    &.open {
+      max-height: 500px;
+      opacity: 1;
+      transform: scaleY(1);
+      pointer-events: auto;
+    }
+
+    .subMenuTitle {
+      font-size: 15px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+  }
+}
+
+.pushedPost {
+  position: relative;
+  height: 100%;
+  padding-bottom: 24px;
+  padding-right: 24px;
+  span {
+    color: $primary;
+    i {
+      opacity: 0.4;
+      transition: $trans;
+    }
+  }
+
+  &:hover {
+    span i {
+      opacity: 1;
+      animation: arrowBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  }
+}
+
+#pushedContent{
+  position: relative;
+  padding-top: 16px;
+  &:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba($secondary, .1);
+    // border-left: 3px solid rgba($secondary, .4);
+  }
+}
+
+#banniere{
+  padding-top: 8px;
+  padding-bottom: 8px;
+  .banniere{
+    i{
+      font-size: 28px;
+      color: white;
+      margin-right: 8px;
+    }
+    p{
+      font-weight: 500;
+      padding-top: 2px;
+    }
+  }
+  .btn-link{
+    margin-left: 16px;
+    font-size: 20px;
+    opacity: 1;
+    color: white;
+    border:0;
+    position: relative;
+    top: 2px;
+  }
+}
+
+@keyframes arrowBounce {
+  0% {
+    transform: translateX(0);
+  }
+
+  40% {
+    transform: translateX(-8px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+
+#menuToggler {
+  background-color: transparent;
+  border: 1px solid rgba($success, .25);
+
+  >div {
+    width: 22px;
+    height: 2px;
+    margin: 4px 0;
+    border-radius: 1px;
+  }
+}
+
+@media screen and (max-width:1199px) {
+  header {
+    width: calc(100% - 32px);
+    -webkit-backdrop-filter: blur(72px);
+    backdrop-filter: blur(72px);
+    background-color: rgba($dark, .5);
+
+    .navbar {
+      .top {
+        height: 54px;
+      }
+
+      .navbar-brand {
+        .logo {
+          height: 40px;
+          width: auto;
+        }
+
+        span {
+          font-size: 34px !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width:767px) {
+  header {
+    .navbar {
+
+      .navbar-brand {
+        span {
+          font-size: 30px !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+.clientSlider {
+    overflow: hidden;
+    padding: 0px 0;
+    background: transparent;
+    position: relative;
+
+    // Gradient gauche
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 150px;
+        height: 100%;
+        background: linear-gradient(to right, $black 0%, transparent 100%);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    // Gradient droite
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 100%;
+        background: linear-gradient(to left, $black 0%, transparent 100%);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 30px;
+        flex-shrink: 0;
+    }
+
+    img {
+        max-height: 44px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        transition: all 0.3s ease;
+    }
+}
+
+// Variation pour les sliders dans .box
+.box {
+    .clientSlider {
+        // Gradient gauche adapté au fond dark
+        &::before {
+            background: linear-gradient(to right, $dark 0%, transparent 100%);
+        }
+
+        // Gradient droite adapté au fond dark
+        &::after {
+            background: linear-gradient(to left, $dark 0%, transparent 100%);
+        }
+    }
+}
+
+// Track pour l'animation de défilement
+.slider-track {
+    display: flex;
+    animation: scroll 30s linear infinite;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+
+// Animation de défilement infini
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

@@ -1,0 +1,102 @@
+// Footer styles
+footer {
+  p,
+  a,
+  li {
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+  }
+
+  .bottomFooter {
+
+    p,
+    a,
+    li {
+      opacity: 0.5;
+    }
+  }
+
+  .social {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    li {
+      margin-right: 16px;
+    }
+
+    i {
+      font-size: 20px;
+      transition: $trans;
+    }
+
+    a {
+      &:hover i {
+        opacity: 0.7;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .footerUl {
+    margin-bottom: 0;
+
+    li {
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+
+      line-height: 1.15;
+
+      span {
+        font-weight: 600;
+        font-size: 15px;
+        color: white;
+      }
+
+      a {
+        font-weight: 300;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.topFooter {
+  background-color: rgba($black, 0.25);
+
+  input[type='email'] {
+    background-color: transparent;
+    border: 1px solid rgba($white, 0.2);
+    color: $white;
+    padding: 8px 16px;
+    width: 100%;
+    border-radius: 4px;
+
+    &::placeholder {
+      color: rgba($white, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+    }
+  }
+
+  ul {
+    li {
+      a {
+        transition: $trans;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+.mainFooter {
+  background-color: rgba($black, 0.15);
+}

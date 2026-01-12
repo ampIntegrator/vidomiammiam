@@ -1,0 +1,23 @@
+.clientSlider {
+  overflow: hidden;
+  position: relative;
+
+  img {
+    max-height: var(--logo-max-height, 44px);
+    width: auto;
+    object-fit: contain;
+  }
+
+  // Speed variations
+  &.speed-fast .slider-track ul {
+    animation-duration: 15s;
+  }
+
+  &.speed-normal .slider-track ul {
+    animation-duration: 30s;
+  }
+
+  &.speed-slow .slider-track ul {
+    animation-duration: 45s;
+  }
+}

@@ -1,0 +1,159 @@
+.textImageContainer {
+  border-radius: $mainBR;
+  overflow: hidden;
+  .row {
+    align-items: stretch;
+  }
+
+  // Animation setup - elements start hidden
+  .animate-slide-left,
+  .animate-slide-right {
+    opacity: 0;
+    transition: none;
+  }
+
+  .animate-slide-left {
+    transform: translateX(-80px);
+  }
+
+  .animate-slide-right {
+    transform: translateX(80px);
+  }
+
+  // Z-index layering: text column always on top
+  > .row > div:has(.infraBox) {
+    position: relative;
+    z-index: 10;
+  }
+
+  > .row > div:has(.imageContainer) {
+    position: relative;
+    z-index: 1;
+  }
+
+  // Text elements start hidden
+  .animate-title,
+  .animate-separator,
+  .animate-text,
+  .animate-cta {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: none;
+  }
+
+  // When visible, trigger animations
+  &.animate-in {
+    // Blocks converge
+    .animate-slide-left {
+      animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    .animate-slide-right {
+      animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    // Text elements stack progressively
+    .animate-title {
+      animation: slideUpFadeText 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.5s;
+    }
+
+    .animate-separator {
+      animation: slideUpFadeText 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.65s;
+    }
+
+    .animate-text {
+      animation: slideUpFadeText 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.8s;
+    }
+
+    .animate-cta {
+      animation: slideUpFadeText 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.95s;
+    }
+  }
+  .infraBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 !important  ;
+    .content{
+      width: 100%;
+    }
+  }
+  .blocTitle {
+    margin-bottom: 8px;
+    line-height: 1.2;
+    font-size: 24px;
+    font-weight: 600;
+
+    &.centered {
+      text-align: center;
+      justify-content: center;
+    }
+  }
+
+  .separator {
+    margin-left: 0;
+    margin-right: 0;
+
+  }
+
+  // Center the separator when centered class is applied
+  .centered + .separator {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  // Image container with filter overlay
+  .imageContainer {
+    position: relative;
+    height: 100%;
+    min-height: 300px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+  }
+}
+
+// Keyframes for TextImageContainer animations
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUpFadeText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

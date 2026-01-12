@@ -1,0 +1,112 @@
+.boxedImageContainer {
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: $mainBR;
+  overflow: hidden;
+
+  // Animation setup - start transparent
+  opacity: 0;
+  transition: none;
+
+  // Text animation setup
+  .animate-text {
+    // Characters start hidden
+    .char {
+      opacity: 0;
+      display: inline-block;
+    }
+  }
+
+  // When visible, animate background image fade in
+  &.animate-in {
+    animation: fadeInBackground 1s ease-out forwards;
+
+    // Typewriter effect - each character appears one by one
+    .animate-text .char {
+      animation: typewriterChar 0.1s ease-out forwards;
+      // animationDelay is set inline per character (1s base + 0.03s per char)
+    }
+  }
+
+  // Height variants
+  &.normal {
+    padding: 5rem 0;
+  }
+
+  &.large {
+    padding: 7rem 0;
+  }
+
+  &.superlarge {
+    padding: 10rem 0;
+  }
+
+  // Color overlays
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.25;
+  }
+
+  // Opacity variants
+  &.overlay-opacity-0::before {
+    opacity: 0;
+  }
+
+  &.overlay-opacity-10::before {
+    opacity: 0.1;
+  }
+
+  &.overlay-opacity-25::before {
+    opacity: 0.25;
+  }
+
+  &.overlay-opacity-50::before {
+    opacity: 0.5;
+  }
+
+  // Color overlays with loop
+  @each $name, $color in $main-colors {
+    &.color-#{$name}::before {
+      background-color: $color;
+    }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .boxedImageTitle {
+    line-height: 1.35;
+    font-weight: 500;
+    font-size: 32px;
+    margin: 0;
+  }
+}
+
+// Keyframes for BoxedImage animations
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes typewriterChar {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,189 @@
+.faqContainer {
+  .faqTitle {
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .faqText {
+    text-align: center;
+    margin-bottom: 24px;
+    opacity: 0.8;
+    line-height: 1.5;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Animation setup - elements start hidden
+  .animate-title,
+  .animate-separator,
+  .animate-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: none;
+  }
+
+  .animate-left,
+  .animate-right {
+    opacity: 0;
+    transition: none;
+  }
+
+  .animate-left {
+    transform: translateX(-50px);
+  }
+
+  .animate-right {
+    transform: translateX(50px);
+  }
+
+  // When container is visible, trigger animations in cascade
+  &.animate-in {
+    .animate-title {
+      animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    .animate-separator {
+      animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.3s;
+    }
+
+    .animate-text {
+      animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.5s;
+    }
+
+    .animate-left {
+      animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.7s;
+    }
+
+    .animate-right {
+      animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.7s;
+    }
+  }
+
+  .faqElement {
+    border-radius: calc( #{$mainBR} / 2);
+    overflow: hidden;
+    background-color: white;
+    transition: $trans;
+    position: relative;
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background-color: $pink;
+      .faqQuestion{
+        color: white !important;
+        i{
+          color: white !important
+        }
+      }
+    }
+    .faqQuestion{
+      &.open{
+        color: white !important;
+        background-color: $primary !important;
+        i{
+          color: white !important
+        }
+      }
+    }
+      
+    .faqQuestion {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      margin: 0;
+      cursor: pointer;
+      user-select: none;
+      transition: $trans;
+      font-size: 18px;
+      font-weight: 500;
+
+      span {
+        flex: 1;
+      }
+
+      i {
+        font-size: 20px;
+        transition: $trans;
+        flex-shrink: 0;
+        color: $pink;
+      }
+
+      &:hover {
+        color: $secondary;
+      }
+
+      &.open {
+        color: $secondary;
+
+        i {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .faqAnswer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s $cubiTr, padding 0.4s $cubiTr;
+      padding: 0 24px;
+      background-color: $primary;
+
+      &.open {
+        max-height: 1000px;
+        padding: 0 24px 24px 24px;
+      }
+
+      p {
+        margin: 0;
+        color: white;
+      }
+    }
+  }
+}
+
+// Keyframes for animations
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

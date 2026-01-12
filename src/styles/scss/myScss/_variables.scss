@@ -1,0 +1,99 @@
+// Variables personnalisées (AVANT l'import Bootstrap)
+$priceColor  : #428161;
+$green       : $priceColor;
+$success     : $green;
+$red         : #FF0066;
+$danger      : $red;
+$orange      :#ff4219;
+$pink        :#ff477e;
+//$pink        :#d9636d;
+$warning     : $orange;
+$purple      : #4500ff;
+$teal        : #d8f3dc;
+$blue        : #04a8ff;
+$info        : #72d2c2;
+$light       : #fff;
+$dark        : rgba(18, 27, 54, 1);
+
+
+$primary     : $green;
+$secondary   : $pink;
+$ivory       : #f7f5f2;
+$ink         : #232425;
+
+// Container padding override - 16px de chaque côté (32px au total)
+// Bootstrap divise cette valeur par 2 pour padding-left et padding-right
+$container-padding-x: 32px;
+
+// Couleurs de base
+$beige       : #ede0d4;
+$white       : #f8f0e5;
+$black       : #000000;
+$footer-bg   : #573c27;
+$text-dark   : #212121;
+$disabledColor: #898989;
+
+$cubiTr: cubic-bezier(0.4, 0, 0.2, 1);
+$trans: .3s all $cubiTr;
+$body-color: #212223;
+$link-hover-color: $green;
+$borderU: rgba(255, 255, 255, 0.1);
+$font-family-base: 'Inter', sans-serif;
+$headings-font-family: 'Inter', sans-serif;
+$headings-font-weight: 600;
+$btn-border-radius: 8px;
+$btn-border-radius-sm: 6px;
+
+// Glassmorphism effect mixin
+@mixin glassmorphism($bg-color: rgba(23, 37, 64, .7), $blur: 8px, $shadow: 0 4px 30px rgba(0, 0, 0, 0.1)) {
+  background: $bg-color;
+  box-shadow: $shadow;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+// Border radius
+$mainBR: 24px;
+$border-radius-md: 8px;
+$btn-border-radius: 50rem;
+$btn-padding-x: $mainBR;
+
+// .card
+$card-border-width: 0px;
+$card-border-color: $borderU;
+$card-border-radius: $mainBR;
+
+//accordion
+$accordion-bg: $black;
+$accordion-border-radius: 10px;
+
+//tabs
+$nav-tabs-border-radius: 0px;
+
+// Map des 7 couleurs principales pour les composants
+$main-colors: (
+  'primary': $primary,
+  'danger': $danger,
+  'success': $success,
+  'warning': $warning,
+  'teal': $teal,
+  'purple': $purple,
+  'info': $info,
+  'white' : $white
+);
+
+
+.btn-Success{
+    color: $dark !important;
+    i{
+        color: inherit
+    }
+}
+
+.bg-ivory{
+    background-color: $ivory;
+}
+
+.bg-green{
+  background-color: $teal;
+}

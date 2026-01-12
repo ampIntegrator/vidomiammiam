@@ -1,0 +1,39 @@
+import type { Block } from 'payload'
+
+export const MediaBlock: Block = {
+  slug: 'mediaBlock',
+  interfaceName: 'MediaBlock',
+  fields: [
+    {
+      name: 'media',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+      label: 'Media',
+    },
+    {
+      name: 'caption',
+      type: 'richText',
+      label: 'Caption',
+    },
+    {
+      name: 'position',
+      type: 'select',
+      defaultValue: 'default',
+      options: [
+        {
+          label: 'Default',
+          value: 'default',
+        },
+        {
+          label: 'Full Width',
+          value: 'fullWidth',
+        },
+      ],
+    },
+  ],
+  labels: {
+    plural: 'Media Blocks',
+    singular: 'Media Block',
+  },
+}

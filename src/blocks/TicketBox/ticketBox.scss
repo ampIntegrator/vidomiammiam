@@ -1,0 +1,198 @@
+.ticketContainer {
+    // Animation setup - elements start hidden
+    .animate-icon,
+    .animate-text,
+    .animate-btn {
+        opacity: 0;
+        transition: none;
+    }
+
+    // Single ticket - convergence effect
+    &.single-ticket {
+        .ticket-single {
+            .animate-icon {
+                transform: translateX(-80px);
+            }
+
+            .animate-text {
+                transform: translateX(0); // No movement, just opacity
+            }
+
+            .animate-btn {
+                transform: translateX(80px);
+            }
+        }
+
+        &.animate-in {
+            .ticket-single {
+                .animate-icon {
+                    animation: slideFromLeftConverge 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.1s;
+                }
+
+                .animate-text {
+                    animation: fadeInCenter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.3s;
+                }
+
+                .animate-btn {
+                    animation: slideFromRightConverge 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.5s;
+                }
+            }
+        }
+    }
+
+    // Double tickets - directional slide
+    &.double-ticket {
+        .ticket-left {
+            .animate-icon,
+            .animate-text,
+            .animate-btn {
+                transform: translateX(-100px);
+            }
+        }
+
+        .ticket-right {
+            .animate-icon,
+            .animate-text,
+            .animate-btn {
+                transform: translateX(100px);
+            }
+        }
+
+        &.animate-in {
+            .ticket-left {
+                // Ticket gauche : btn → text → icon (ordre inverse)
+                .animate-btn {
+                    animation: slideFromLeftStack 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.1s;
+                }
+
+                .animate-text {
+                    animation: slideFromLeftStack 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.25s;
+                }
+
+                .animate-icon {
+                    animation: slideFromLeftStack 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.4s;
+                }
+            }
+
+            .ticket-right {
+                // Ticket droit : icon → text → btn (ordre normal)
+                .animate-icon {
+                    animation: slideFromRightStack 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.1s;
+                }
+
+                .animate-text {
+                    animation: slideFromRightStack 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.25s;
+                }
+
+                .animate-btn {
+                    animation: slideFromRightStack 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.4s;
+                }
+            }
+        }
+    }
+
+    .ticket {
+        cursor: pointer;
+        transition: $trans;
+        text-decoration: none;
+        border-radius: calc( #{$mainBR} / 2);
+        background-color: white;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+
+        i {
+            flex-shrink: 0;
+            color: $pink;
+        }
+        p{
+            color: $ink
+        }
+
+        .flex-grow-1 {
+            flex-grow: 1;
+            font-weight: 500;
+        }
+
+        .btn {
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        &:hover{
+            background-color: $pink;
+            p, i{
+                color: white !important
+            }
+            .btn{
+                background-color: white !important;
+                color: $pink;
+                border-color: $secondary
+            }
+        }
+    }
+}
+
+// Keyframes for single ticket convergence
+@keyframes slideFromLeftConverge {
+    from {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInCenter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromRightConverge {
+    from {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+// Keyframes for double tickets stacking
+@keyframes slideFromLeftStack {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFromRightStack {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

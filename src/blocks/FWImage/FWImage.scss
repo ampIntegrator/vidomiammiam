@@ -1,0 +1,71 @@
+.fwImage {
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  // Height variants
+  &.small {
+    padding: 5rem 0;
+  }
+
+  &.normal {
+    padding: 7.5rem 0;
+  }
+
+  &.large {
+    padding: 10rem 0;
+  }
+
+  &.extralarge {
+    padding: 12.5rem 0;
+  }
+
+  // Color overlays
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.25;
+  }
+
+  // Opacity variants
+  &.overlay-opacity-0::before {
+    opacity: 0;
+  }
+
+  &.overlay-opacity-10::before {
+    opacity: 0.1;
+  }
+
+  &.overlay-opacity-25::before {
+    opacity: 0.25;
+  }
+
+  &.overlay-opacity-50::before {
+    opacity: 0.5;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .fwTitle{
+    line-height: 1.35;
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0;
+    color: $primary; // Start color for reveal effect
+  }
+
+  // Reveal overlay for scroll effect
+  .reveal-overlay {
+    background-color: $primary;
+  }
+
+}

@@ -1,0 +1,61 @@
+.fwBanner {
+  position: relative;
+
+  &.withText {
+    &.normal {
+      padding: 5rem 0;
+    }
+
+    &.large {
+      padding: 7rem 0;
+    }
+
+    &.superlarge {
+      padding: 10rem 0;
+    }
+  }
+
+  .fwTitle {
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    &.text-Dark {
+      color: $dark;
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+    font-size: 18px;
+    &.text-Dark {
+      color: $dark;
+    }
+  }
+
+  .btn {
+    margin-top: 32px;
+    transition: $trans;
+    &.btn-outline {
+      border: 1px solid white;
+      &.text-Dark {
+        border-color: $dark;
+        color: $dark;
+      }
+    }
+  }
+
+  // Hover styles for buttons with loop
+  @each $name, $color in $main-colors {
+    &.bg-#{$name} .btn:hover {
+      @if $name == 'success' or $name == 'warning' or $name == 'info' {
+        background-color: $dark !important;
+        color: $color !important;
+        border-color: $dark !important;
+      } @else {
+        background-color: $white;
+        color: $color !important;
+        border-color: $white;
+      }
+    }
+  }
+}

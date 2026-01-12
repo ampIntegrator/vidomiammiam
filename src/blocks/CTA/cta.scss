@@ -1,0 +1,130 @@
+.ctaContainer {
+    // Animation setup - buttons start hidden
+    .animate-single,
+    .animate-converge-left,
+    .animate-converge-right,
+    .animate-triple-left,
+    .animate-triple-center,
+    .animate-triple-right {
+        opacity: 0;
+        transition: none;
+    }
+
+    // 1 button - simple slide up
+    &.btn-count-1 {
+        .animate-single {
+            transform: translateY(30px);
+        }
+
+        &.animate-in {
+            .animate-single {
+                animation: slideUpFadeCTA 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.2s;
+            }
+        }
+    }
+
+    // 2 buttons - converge toward each other
+    &.btn-count-2 {
+        .animate-converge-left {
+            transform: translateX(-80px);
+        }
+
+        .animate-converge-right {
+            transform: translateX(80px);
+        }
+
+        &.animate-in {
+            .animate-converge-left {
+                animation: slideFromLeftCTA 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.2s;
+            }
+
+            .animate-converge-right {
+                animation: slideFromRightCTA 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.2s;
+            }
+        }
+    }
+
+    // 3 buttons - choreography: btn1 & btn3 converge while btn2 scales horizontally
+    &.btn-count-3 {
+        .animate-triple-left {
+            transform: translateX(-100px);
+        }
+
+        .animate-triple-center {
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+
+        .animate-triple-right {
+            transform: translateX(100px);
+        }
+
+        &.animate-in {
+            // Btn 1 (left) converges to center
+            .animate-triple-left {
+                animation: slideFromLeftCTA 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.15s;
+            }
+
+            // Btn 2 (center) expands horizontally - synchronized to finish with btn1 & btn3
+            .animate-triple-center {
+                animation: scaleHorizontalCTA 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+                animation-delay: 0.15s;
+            }
+
+            // Btn 3 (right) converges to center
+            .animate-triple-right {
+                animation: slideFromRightCTA 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.15s;
+            }
+        }
+    }
+}
+
+// Keyframes for CTA animations
+@keyframes slideUpFadeCTA {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideFromLeftCTA {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFromRightCTA {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleHorizontalCTA {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}

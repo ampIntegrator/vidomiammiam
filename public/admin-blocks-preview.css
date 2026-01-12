@@ -1,0 +1,141 @@
+/**
+ * IMPORTANT: Ce fichier utilise l'ORDRE des blocks dans Pages/index.ts
+ *
+ * Ordre stable (ne PAS réorganiser les blocks dans Pages/index.ts sans mettre à jour ici):
+ * 1. IconsBox
+ * 2. TitleFigureLong
+ * 3. FigureOnTop
+ * 4. TitleTextNoBoxing
+ * 5. TitleWithSeparator
+ * 6. TextImageContainer
+ * 7. BoxedImage
+ * 8. PriceList
+ * 9. Accordion
+ * 10. Tabs
+ * 11. Stepper
+ * 12. CTA
+ * 13. FWBanner
+ * 14. FWImage
+ * 15. BlogPostsGrid
+ * 16. LogoSlider
+ * 17. TicketBox
+ *
+ * Les labels peuvent changer librement, seul l'ORDRE compte !
+ */
+
+/* Block Preview Images in Admin Drawer */
+.blocks-drawer__blocks {
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 10px;
+}
+
+/* Remplacer le SVG par défaut par nos images personnalisées */
+.blocks-drawer__default-image {
+  display: none !important;
+}
+
+.blocks-drawer__blocks .thumbnail-card {
+  padding: 6px;
+}
+
+/* Afficher nos images à la place */
+.thumbnail-card__thumbnail {
+  width: 100% !important;
+  height: 160px !important;
+  background-size: 100% auto !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-radius: 4px !important;
+}
+
+.thumbnail-card__label {
+  padding: 0 5px 5px;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+/* 1. IconsBox */
+.blocks-drawer__blocks li:nth-child(1) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/icons-box.png') !important;
+}
+
+/* 2. TitleFigureLong */
+.blocks-drawer__blocks li:nth-child(2) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/title-figure-long.png') !important;
+}
+
+/* 3. FigureOnTop */
+.blocks-drawer__blocks li:nth-child(3) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/figure-on-top.png') !important;
+}
+
+/* 4. TitleTextNoBoxing */
+.blocks-drawer__blocks li:nth-child(4) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/title-text-no-boxing.png') !important;
+}
+
+/* 5. TitleWithSeparator */
+.blocks-drawer__blocks li:nth-child(5) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/title-with-separator.png') !important;
+}
+
+/* 6. TextImageContainer */
+.blocks-drawer__blocks li:nth-child(6) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/text-image-container.png') !important;
+}
+
+/* 7. BoxedImage */
+.blocks-drawer__blocks li:nth-child(7) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/boxed-image.png') !important;
+}
+
+/* 8. PriceList */
+.blocks-drawer__blocks li:nth-child(8) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/price-list.png') !important;
+}
+
+/* 9. Accordion */
+.blocks-drawer__blocks li:nth-child(9) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/accordion.png') !important;
+}
+
+/* 10. Tabs */
+.blocks-drawer__blocks li:nth-child(10) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/tabs.png') !important;
+}
+
+/* 11. Stepper */
+.blocks-drawer__blocks li:nth-child(11) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/stepper.png') !important;
+}
+
+/* 12. CTA */
+.blocks-drawer__blocks li:nth-child(12) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/cta.png') !important;
+}
+
+/* 13. FWBanner */
+.blocks-drawer__blocks li:nth-child(13) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/fw-banner.png') !important;
+}
+
+/* 14. FWImage */
+.blocks-drawer__blocks li:nth-child(14) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/fw-image.png') !important;
+}
+
+/* 15. BlogPostsGrid */
+.blocks-drawer__blocks li:nth-child(15) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/blog-posts-grid.png') !important;
+}
+
+/* 16. LogoSlider */
+.blocks-drawer__blocks li:nth-child(16) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/logo-slider.png') !important;
+}
+
+/* 17. TicketBox */
+.blocks-drawer__blocks li:nth-child(17) .thumbnail-card__thumbnail {
+  background-image: url('/block-previews/ticket-box.png') !important;
+}

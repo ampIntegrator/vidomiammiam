@@ -1,0 +1,97 @@
+.iconsBoxContainer {
+    // Animation setup - elements start hidden
+    .animate-icon,
+    .animate-title,
+    .animate-text {
+        opacity: 0;
+        transition: none;
+    }
+
+    .animate-title,
+    .animate-text {
+        transform: translateY(20px);
+    }
+
+    // When container is visible, trigger synchronized animations
+    &.animate-in {
+        .animate-icon {
+            animation: fadeInIcon 0.6s ease-out forwards;
+        }
+
+        .animate-title {
+            animation: slideUpStack 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.15s;
+        }
+
+        .animate-text {
+            animation: slideUpStack 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.3s;
+        }
+    }
+}
+
+.iconsBox {
+
+    // Style de base pour l'icône
+    i {
+        font-size: 36px;
+        transition: $trans;
+        color: $secondary
+    }
+
+    // Style de base pour le titre
+    .iconsBoxTitle {
+        margin: 8px 0 16px;
+        line-height: 1.2;
+        transition: $trans;
+        font-size: 20px;
+    }
+
+
+    // Variante .center : centrer l'icône et le titre seulement
+    &.center {
+        i {
+            display: block;
+            text-align: center;
+        }
+
+        .iconsBoxTitle {
+            text-align: center;
+        }
+    }
+
+
+}
+
+
+.bg-primary{
+    .iconsBoxContainer.noInfraBox{
+        .iconsBoxTitle,
+
+        p{
+            opacity: 1;
+            color: white !important
+        }
+    }
+}
+
+// Keyframes for IconsBox animations
+@keyframes fadeInIcon {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpStack {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

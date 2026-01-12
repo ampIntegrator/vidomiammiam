@@ -1,0 +1,23 @@
+.blocTitle {
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+
+  &.withFigure {
+    span:first-child {
+    margin-right: 8px;
+    font-size: 44px;
+    font-weight: 700;
+    color: $secondary;
+    }
+  }
+
+
+}
+
+p {
+  margin: 0;
+}

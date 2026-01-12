@@ -1,0 +1,235 @@
+// Styles pour react-select
+// Note: react-select utilise des styles inline par défaut, ces styles viennent les surcharger
+
+// Personnalisations pour react-select avec les couleurs du formulaire
+form {
+    @each $name, $color in $main-colors {
+        &.color#{$name} {
+            // Container principal du select
+            .react-select__control {
+                background-color: $black;
+                border: 0;
+                border-bottom: 2px solid rgba($color, 0.4);
+                border-radius: 0;
+                min-height: 46px;
+                transition: $trans;
+
+                &:hover {
+                    border-bottom-color: rgba($color, 0.6);
+                }
+
+                &--is-focused {
+                    border-bottom-color: rgba($color, 1);
+                    box-shadow: none;
+                }
+            }
+
+            // Texte de la valeur sélectionnée
+            .react-select__single-value {
+                color: $white;
+            }
+
+            // Placeholder
+            .react-select__placeholder {
+                color: $color;
+                opacity: 0.6;
+            }
+
+            // Input de recherche
+            .react-select__input-container {
+                color: $white;
+            }
+
+            // Menu déroulant
+            .react-select__menu {
+                background-color: $black !important;
+                border: 2px solid rgba($color, 0.4) !important;
+                border-radius: 0 !important;
+                margin-top: 2px;
+                z-index: 9999 !important;
+                position: absolute !important;
+                box-shadow: none !important;
+            }
+
+            .react-select__menu-list {
+                padding: 0;
+                max-height: 300px;
+                overflow-y: auto;
+                background-color: $black !important;
+            }
+
+            // Options dans le menu
+            .react-select__option {
+                background-color: $black !important;
+                color: $white !important;
+                transition: $trans;
+                padding: 8px 12px;
+
+                &:nth-child(odd) {
+                    background-color: rgba($color, 0.1) !important;
+                }
+
+                &--is-focused {
+                    background-color: rgba($color, 0.3) !important;
+                    color: $white !important;
+                }
+
+                &--is-selected {
+                    background-color: $color !important;
+                    color: $white !important;
+                }
+
+                &:hover {
+                    background-color: rgba($color, 0.5) !important;
+                    color: $white !important;
+                }
+            }
+
+            // Icônes (dropdown arrow, clear)
+            .react-select__indicator {
+                color: $color;
+                transition: $trans;
+
+                &:hover {
+                    color: rgba($color, 0.8);
+                }
+            }
+
+            .react-select__indicator-separator {
+                background-color: rgba($color, 0.4);
+            }
+
+            // Clear button
+            .react-select__clear-indicator {
+                color: $color;
+                cursor: pointer;
+
+                &:hover {
+                    color: rgba($color, 0.8);
+                }
+            }
+
+            // === STYLES POUR MULTI-SELECT ===
+            // Tags/badges pour les sélections multiples
+            .react-select__multi-value {
+                background-color: $color;
+                border-radius: 2px;
+                transition: $trans;
+
+                &__label {
+                    color: $white;
+                    padding: 3px 6px;
+                }
+
+                &__remove {
+                    color: $white;
+                    cursor: pointer;
+                    transition: $trans;
+
+                    &:hover {
+                        background-color: rgba($white, 0.2);
+                        color: $white;
+                    }
+                }
+            }
+
+            // Input container pour multi-select
+            .react-select__value-container--is-multi {
+                padding: 2px 8px;
+            }
+        }
+    }
+
+    // Exception pour colorSuccess et colorWarning : texte en dark sur les badges
+    &.colorsuccess,
+    &.colorwarning {
+        .react-select__multi-value {
+            &__label {
+                color: $dark;
+            }
+
+            &__remove {
+                color: $dark;
+
+                &:hover {
+                    background-color: rgba($dark, 0.2);
+                    color: $dark;
+                }
+            }
+        }
+
+        .react-select__option--is-selected {
+            color: $dark;
+        }
+    }
+}
+
+// Styles pour le portail react-select (menu rendu hors du form)
+.react-select__menu-portal{
+    .react-select__menu{
+        border-radius: 0;
+        margin-top: 0;
+    }
+    .react-select__menu-list{
+        padding: 0;
+    }
+    .react-select__option{
+        background-color:$black;
+        color: $white;
+        transition: $trans;
+        padding: 8px 12px;
+
+        &.react-select__option--is-selected{
+            background-color: $primary;
+            color: white;
+        }
+
+        &:hover{
+            background-color: rgba($primary, 0.5);
+        }
+    }
+}
+
+// Classes de couleur pour le portail react-select (indépendantes du form parent)
+@each $name, $color in $main-colors {
+    .react-select__menu-portal.color#{$name} {
+        .react-select__menu {
+            background-color: $black !important;
+            border: 0;
+            border-radius: 0 !important;
+        }
+
+        .react-select__menu-list {
+            background-color: $black !important;
+        }
+
+        .react-select__option {
+            &:nth-child(odd) {
+                background-color: rgba($color, 0.1) !important;
+            }
+
+            &--is-focused {
+                background-color: rgba($color, 0.3) !important;
+                color: $white !important;
+            }
+
+            &--is-selected {
+                background-color: $color !important;
+                color: $white !important;
+            }
+
+            &:hover {
+                background-color: rgba($color, 0.5) !important;
+                color: $white !important;
+            }
+        }
+    }
+}
+
+// Exception pour success et warning : texte dark sur les options sélectionnées
+.react-select__menu-portal.colorsuccess,
+.react-select__menu-portal.colorwarning {
+    .react-select__option--is-selected {
+        color: $dark !important;
+    }
+}

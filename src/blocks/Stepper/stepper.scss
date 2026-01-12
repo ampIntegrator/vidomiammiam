@@ -1,0 +1,262 @@
+.stepper {
+    border-radius: $mainBR;
+    padding: 24px;
+    display: block;
+    background-color: $black;
+
+    &.transparent{
+        display: block;
+        padding: 0;
+        background-color: transparent;
+        width: 100%;
+        .olStepper{
+            .stepperItem{
+                &.active{
+                    span{
+                        background-color: $dark !important;
+                    }
+                }
+            }
+        }
+    }
+
+    &.center{
+
+        .stepperTitle{
+            text-align: center;
+        }
+        .olStepper{
+            justify-content: center;
+        }
+        .stepperDesc{
+            margin-left: auto !important;
+            margin-right: auto !important;
+            text-align: center;
+        }
+    }
+    
+    > * {
+        margin: 0;
+        &:nth-child(n+2){
+            margin-top: 24px !important;
+        }
+    }
+
+    .stepperTitle {
+        font-weight: 600;
+        font-size: 26px;
+        color: $white;
+    }
+
+    .stepperDesc {
+        font-size: 18px;
+        margin-bottom: 0;
+        color: $white;
+        max-width: 640px;
+    }
+
+    // Hide title and description when stepper is completed
+    &:has(.olStepper.completed) {
+        .stepperTitle,
+        .stepperDesc {
+            display: none;
+        }
+    }
+
+    .olStepper {
+        display: flex;
+        counter-reset: stepper-counter;
+
+        &.completed {
+            justify-content: center;
+
+            i {
+                font-size: 32px;
+                color: $white;
+            }
+        }
+
+        .stepperItem {
+            counter-increment: stepper-counter;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+
+            &:before {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: $white;
+                color: $dark;
+                margin: 0 auto;
+                font-weight: 600;
+                font-size: 18px;
+                content: "\f4e0";
+                font-family: Nucleo;
+            }
+
+            &:not(:last-child) {
+                &:after {
+                    display: block;
+                    content: "";
+                    height: 2px;
+                    min-width: 40px;
+                    background-color: $white;
+                }
+            }
+
+            span {
+                display: none;
+            }
+
+            &.active:before,
+            &.active ~ .stepperItem:before {
+                content: counter(stepper-counter);
+                font-family: $font-family-base;
+            }
+
+            &.active {
+                &:before {
+                    color: $dark;
+                    position: relative;
+                    z-index: 1;
+                    width: 26px;
+                    height: 26px;
+                    background-color: $white;
+                }
+
+                position: relative;
+
+                span {
+                    position: absolute;
+                    z-index: 0;
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    border: 2px solid $white;
+                    background-color: $black;
+                    left: -7px;
+                }
+
+                &:after {
+                    background-color: $disabledColor !important;
+                }
+            }
+
+            &.active ~ .stepperItem {
+                &:before {
+                    background-color: $disabledColor;
+                    color: $white;
+                    font-weight: 400 !important;
+                }
+
+                &:after {
+                    background-color: $disabledColor !important;
+                }
+            }
+        }
+    }
+
+    // Boucle des variantes de couleur
+    @each $name, $color in $main-colors {
+        &.color#{to-upper-case(str-slice($name, 1, 1))}#{str-slice($name, 2)} {
+
+            .stepperTitle {
+                color: $color;
+            }
+
+            .olStepper.completed i {
+                color: $color;
+            }
+
+            .stepperItem {
+                &:before {
+                    background-color: $color;
+                    color: $white;
+                }
+
+                &:after {
+                    background-color: $color !important;
+                }
+            }
+
+            .stepperItem.active {
+                &:before {
+                    background-color: $white;
+                    color: $color !important;
+                }
+
+                span {
+                    border-color: $color;
+                }
+
+                &:after {
+                    background-color: $disabledColor !important;
+                }
+            }
+        }
+    }
+    // Exception pour Success et Warning : texte en dark
+    &.colorOrange,
+    &.colorSuccess,
+    &.colorWarning {
+        // Items validés (avant .active) : icône/texte en dark
+        .stepperItem:before {
+            color: $dark !important;
+        }
+
+        // Item actif : texte en dark (au lieu de la couleur)
+        .stepperItem.active:before {
+            color: $dark !important;
+        }
+    }
+}
+
+.formFooter{
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    .btn{
+        margin: 0 8px;
+    }
+}
+
+// Sticky image container
+.stepperStickyImage {
+    position: sticky;
+    // top is dynamically set via inline style based on header height
+    height: fit-content;
+    border-radius: $mainBR;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: auto;
+        min-height: 400px;
+        object-fit: cover;
+        display: block;
+    }
+
+    // Color filter variants
+    @each $name, $color in $main-colors {
+        &.color#{to-upper-case(str-slice($name, 1, 1))}#{str-slice($name, 2)} {
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba($color, 0.3);
+                pointer-events: none;
+            }
+        }
+    }
+}

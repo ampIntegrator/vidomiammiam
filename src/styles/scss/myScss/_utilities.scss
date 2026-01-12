@@ -1,0 +1,120 @@
+// Vos styles personnalisés APRÈS Bootstrap
+
+// Force container padding à 16px sur tous les breakpoints
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+  --bs-gutter-x: 32px;
+  padding-right: 16px !important;
+  padding-left: 16px !important;
+}
+.fw-500{
+    font-weight: 500;
+}
+.text-orange {
+    color: $orange !important
+}
+
+.bg-orange {
+    background-color: $orange !important
+}
+
+.text-purple {
+    color: $purple !important
+}
+
+.bg-purple {
+    background-color: $purple !important
+}
+
+.text-teal {
+    color: $teal !important
+}
+
+.bg-teal {
+    background-color: $teal !important
+}
+
+.btn {
+    flex-shrink: 0;
+}
+
+.fz14 {
+    font-size: 14px;
+}
+
+.fs5 {
+    font-size: 1.25rem;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+ul {
+    list-style: none;
+}
+
+.flexCS {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.flexCC {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flexCSB {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+p {
+    strong {
+        font-weight: 600;
+
+    }
+}
+
+.bgi {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    &.h160 {
+        height: 160px;
+
+    }
+}
+
+.badge {
+    text-decoration: none !important;
+}
+
+.roundedImg {
+    border-radius: 16px
+}
+
+.fw-semibold {
+    font-weight: 600;
+}
+
+a, .btn{
+    cursor: pointer
+}
+
+.pb-6{
+    padding-bottom: 96px;
+}
+.pt-6{
+    padding-top: 96px;
+}

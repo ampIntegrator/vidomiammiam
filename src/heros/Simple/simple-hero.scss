@@ -1,0 +1,12 @@
+.topOfPage {
+  padding-top: 800px;
+  h1 {
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1.35;
+
+    @media (max-width: 768px) {
+      font-size: 40px;
+    }
+  }
+}

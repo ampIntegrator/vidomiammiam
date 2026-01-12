@@ -1,0 +1,42 @@
+[
+  {
+    "value": "primary",
+    "label": "Primary",
+    "cssVar": "--color-primary"
+  },
+  {
+    "value": "danger",
+    "label": "Danger",
+    "cssVar": "--color-danger"
+  },
+  {
+    "value": "success",
+    "label": "Success",
+    "cssVar": "--color-success"
+  },
+  {
+    "value": "warning",
+    "label": "Warning",
+    "cssVar": "--color-warning"
+  },
+  {
+    "value": "teal",
+    "label": "Teal",
+    "cssVar": "--color-teal"
+  },
+  {
+    "value": "purple",
+    "label": "Purple",
+    "cssVar": "--color-purple"
+  },
+  {
+    "value": "info",
+    "label": "Info",
+    "cssVar": "--color-info"
+  },
+  {
+    "value": "white",
+    "label": "White",
+    "cssVar": "--color-white"
+  }
+]
