@@ -1,6 +1,191 @@
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandFromCenter {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .titleWithSeparatorContainer {
-    .separator{
+    // Animation setup - elements start hidden
+    .blocTitle,
+    p {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .separator {
         margin-left: 0;
+        opacity: 0;
+        transform: scaleX(0);
+        transform-origin: center;
+    }
+
+    // When container has 2 blocks, animate them from sides
+    &.has-two-blocks {
+        .row > div {
+            opacity: 0;
+
+            &:first-child {
+                transform: translateX(-60px);
+            }
+
+            &:last-child {
+                transform: translateX(60px);
+            }
+        }
+
+        &.animate-in {
+            .row > div {
+                &:first-child {
+                    animation: slideInFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+
+                &:last-child {
+                    animation: slideInFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.1s;
+                }
+            }
+
+            // Internal stacking animations for content inside blocks
+            .blocTitle {
+                animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.3s;
+            }
+
+            .separator {
+                animation: expandFromCenter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.5s;
+            }
+
+            p {
+                animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.7s;
+            }
+        }
+    }
+
+    // When container has complementary image (single block with image)
+    &.has-complementary-image {
+        .row > div {
+            opacity: 0;
+        }
+
+        // Image on the left
+        &.image-left {
+            .row > div:first-child {
+                transform: translateX(-60px);
+            }
+            .row > div:last-child {
+                transform: translateX(60px);
+            }
+        }
+
+        // Image on the right
+        &.image-right {
+            .row > div:first-child {
+                transform: translateX(-60px);
+            }
+            .row > div:last-child {
+                transform: translateX(60px);
+            }
+        }
+
+        &.animate-in {
+            // Image on the left
+            &.image-left {
+                .row > div:first-child {
+                    animation: slideInFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+                .row > div:last-child {
+                    animation: slideInFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.1s;
+                }
+            }
+
+            // Image on the right
+            &.image-right {
+                .row > div:first-child {
+                    animation: slideInFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+                .row > div:last-child {
+                    animation: slideInFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.1s;
+                }
+            }
+
+            // Internal stacking animations for content inside blocks
+            .blocTitle {
+                animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.3s;
+            }
+
+            .separator {
+                animation: expandFromCenter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.5s;
+            }
+
+            p {
+                animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.7s;
+            }
+        }
+    }
+
+    // When container has 1 block, only internal stacking
+    &:not(.has-two-blocks) {
+        &.animate-in {
+            .blocTitle {
+                animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.1s;
+            }
+
+            .separator {
+                animation: expandFromCenter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.3s;
+            }
+
+            p {
+                animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                animation-delay: 0.5s;
+            }
+        }
     }
 
     .blocTitle {
@@ -17,5 +202,13 @@
     }
     p {
         margin: 0;
+    }
+
+    // Complementary image block
+    .complementary-image {
+        min-height: 260px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 }

@@ -26,6 +26,9 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
   if (resource && typeof resource === 'object') {
     const { filename } = resource
 
+    // Use relative URL to avoid hydration mismatch
+    const videoSrc = `/media/${filename}`
+
     return (
       <video
         autoPlay
@@ -37,7 +40,7 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
         playsInline
         ref={videoRef}
       >
-        <source src={getMediaUrl(`/media/${filename}`)} />
+        <source src={videoSrc} />
       </video>
     )
   }

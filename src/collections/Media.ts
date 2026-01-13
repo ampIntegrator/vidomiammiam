@@ -50,7 +50,7 @@ export const Media: CollectionConfig = {
     focalPoint: true,
     disableLocalStorage: false,
     filesRequiredOnCreate: false,
-    mimeTypes: ['image/*'],
+    mimeTypes: ['image/*', 'video/*'],
     imageSizes: [
       {
         name: 'thumbnail',

@@ -76,16 +76,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, identity }) =>
     }
   }, [data.banner, bannerClosed])
 
-  // Force open "Services" menu on mount
-  useEffect(() => {
-    const servicesIndex = data.navItems?.findIndex((item) =>
-      item.link?.label?.toLowerCase().includes('service'),
-    )
-    if (servicesIndex !== undefined && servicesIndex !== -1) {
-      setActiveMenuIndex(servicesIndex)
-    }
-  }, [data.navItems])
-
   useEffect(() => {
     setHeaderTheme(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -283,8 +273,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, identity }) =>
                           <h3 className="subMenuTitle mb-3">
                             Ceci est un article dans le megamenu bien visible
                           </h3>
-                          <a href="#" className="btn btn-primary">
+                          <a href="#" className="w-100 d-flex justify-space-between">
                             En savoir plus
+                            <i className="icon icon-arrow-right"></i>
                           </a>
                         </div>
                       )}

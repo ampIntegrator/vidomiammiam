@@ -28,7 +28,15 @@
         .infraBox{
             background-color: transparent !important;
         }
-}
+    }
+    .titleWithSeparatorContainer{
+        &.noInfraBox{
+            p,
+            .blocTitle{
+              color: white !important  
+            }
+        }
+    }
 }
 #main{
     > section{

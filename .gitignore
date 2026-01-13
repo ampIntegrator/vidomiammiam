@@ -57,3 +57,6 @@ public/sitemap*.xml
 # Temporary scripts
 seed-script.mjs
 seed-script.ts
+
+# Serena AI assistant config
+.serena/

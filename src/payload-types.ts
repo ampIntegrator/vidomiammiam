@@ -163,11 +163,70 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  hero?: {
+  hero: {
+    type: 'simple' | 'fullScreen';
     /**
      * Optional: replaces page title. You can use <br> for line breaks.
      */
     simpleHeading?: string | null;
+    /**
+     * Upload an image or video for the background
+     */
+    backgroundMedia?: (number | null) | Media;
+    /**
+     * Main title displayed as H1
+     */
+    title?: string | null;
+    /**
+     * Paragraph text below the title
+     */
+    description?: string | null;
+    primaryButton?: {
+      enabled?: boolean | null;
+      text?: string | null;
+      link?: {
+        type?: ('reference' | 'custom') | null;
+        newTab?: boolean | null;
+        reference?:
+          | ({
+              relationTo: 'pages';
+              value: number | Page;
+            } | null)
+          | ({
+              relationTo: 'posts';
+              value: number | Post;
+            } | null);
+        url?: string | null;
+        label: string;
+        /**
+         * Choose how the link should be rendered.
+         */
+        appearance?: ('default' | 'outline') | null;
+      };
+    };
+    secondaryButton?: {
+      enabled?: boolean | null;
+      text?: string | null;
+      link?: {
+        type?: ('reference' | 'custom') | null;
+        newTab?: boolean | null;
+        reference?:
+          | ({
+              relationTo: 'pages';
+              value: number | Page;
+            } | null)
+          | ({
+              relationTo: 'posts';
+              value: number | Post;
+            } | null);
+        url?: string | null;
+        label: string;
+        /**
+         * Choose how the link should be rendered.
+         */
+        appearance?: ('default' | 'outline') | null;
+      };
+    };
   };
   layout: (
     | IconsBoxBlock
@@ -237,136 +296,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IconsBoxBlock".
- */
-export interface IconsBoxBlock {
-  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
-  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
-  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
-  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
-  noBoxing?: ('withBoxing' | 'noBoxing') | null;
-  center?: boolean | null;
-  items: {
-    /**
-     * Click to select an icon from the visual picker
-     */
-    icon: string;
-    title: string;
-    description: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'iconsBox';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TitleFigureLongBlock".
- */
-export interface TitleFigureLongBlock {
-  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
-  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
-  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
-  noBoxing?: ('withBoxing' | 'noBoxing') | null;
-  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
-  items: {
-    /**
-     * The number displayed in the span (e.g., "01", "02", "03")
-     */
-    figure: string;
-    title: string;
-    description: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'titleFigureLong';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FigureOnTopBlock".
- */
-export interface FigureOnTopBlock {
-  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
-  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
-  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
-  noBoxing?: ('withBoxing' | 'noBoxing') | null;
-  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
-  center?: boolean | null;
-  items: {
-    /**
-     * Free text to display in the figure element
-     */
-    figure: string;
-    title: string;
-    description: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'figureOnTop';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TitleTextNoBoxingBlock".
- */
-export interface TitleTextNoBoxingBlock {
-  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
-  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
-  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
-  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
-  center?: boolean | null;
-  title: string;
-  text: string;
-  ctaText?: string | null;
-  ctaUrl?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'titleTextNoBoxing';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TitleWithSeparatorBlock".
- */
-export interface TitleWithSeparatorBlock {
-  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
-  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
-  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
-  noBoxing?: ('withBoxing' | 'noBoxing') | null;
-  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
-  center?: boolean | null;
-  items: {
-    title: string;
-    text: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'titleWithSeparator';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextImageContainerBlock".
- */
-export interface TextImageContainerBlock {
-  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
-  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
-  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
-  textColumnWidth: 'col-lg-4' | 'col-lg-6' | 'col-lg-8';
-  image: number | Media;
-  layout: 'textImage' | 'imageText';
-  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
-  center?: boolean | null;
-  title: string;
-  text: string;
-  ctaText?: string | null;
-  ctaUrl?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'textImageContainer';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -486,6 +415,255 @@ export interface FolderInterface {
   folderType?: 'media'[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  /**
+   * Texte affiché au-dessus des articles connexes en bas de page
+   */
+  relatedPostsTitle?: string | null;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  parent?: (number | null) | Category;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Category;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IconsBoxBlock".
+ */
+export interface IconsBoxBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
+  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
+  noBoxing?: ('withBoxing' | 'noBoxing') | null;
+  center?: boolean | null;
+  items: {
+    /**
+     * Click to select an icon from the visual picker
+     */
+    icon: string;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'iconsBox';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleFigureLongBlock".
+ */
+export interface TitleFigureLongBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
+  noBoxing?: ('withBoxing' | 'noBoxing') | null;
+  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
+  items: {
+    /**
+     * The number displayed in the span (e.g., "01", "02", "03")
+     */
+    figure: string;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'titleFigureLong';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FigureOnTopBlock".
+ */
+export interface FigureOnTopBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
+  noBoxing?: ('withBoxing' | 'noBoxing') | null;
+  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
+  center?: boolean | null;
+  items: {
+    /**
+     * Free text to display in the figure element
+     */
+    figure: string;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'figureOnTop';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleTextNoBoxingBlock".
+ */
+export interface TitleTextNoBoxingBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
+  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
+  center?: boolean | null;
+  title: string;
+  text: string;
+  ctaText?: string | null;
+  ctaUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'titleTextNoBoxing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleWithSeparatorBlock".
+ */
+export interface TitleWithSeparatorBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
+  noBoxing?: ('withBoxing' | 'noBoxing') | null;
+  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
+  center?: boolean | null;
+  /**
+   * Choose alignment when there is only one content block
+   */
+  blockAlignment?: ('left' | 'center' | 'right') | null;
+  /**
+   * Choose width when there is only one content block
+   */
+  singleBlockWidth?: ('col-lg-6' | 'col-lg-8') | null;
+  /**
+   * Optional image to fill the remaining space when single block width is set. Will be displayed as background.
+   */
+  complementaryImage?: (number | null) | Media;
+  /**
+   * Choose whether the complementary image appears on the left or right
+   */
+  imagePosition?: ('left' | 'right') | null;
+  items: {
+    title: string;
+    text: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'titleWithSeparator';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextImageContainerBlock".
+ */
+export interface TextImageContainerBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
+  textColumnWidth: 'col-lg-4' | 'col-lg-6' | 'col-lg-8';
+  image: number | Media;
+  layout: 'textImage' | 'imageText';
+  headingLevel: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
+  center?: boolean | null;
+  title: string;
+  text: string;
+  ctaText?: string | null;
+  ctaUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textImageContainer';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -946,30 +1124,6 @@ export interface BlogPostsGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  title: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  parent?: (number | null) | Category;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Category;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LogoSliderBlock".
  */
 export interface LogoSliderBlock {
@@ -1033,85 +1187,6 @@ export interface TicketBoxBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ticketBox';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  /**
-   * Texte affiché au-dessus des articles connexes en bas de page
-   */
-  relatedPostsTitle?: string | null;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1410,7 +1485,43 @@ export interface PagesSelect<T extends boolean = true> {
   hero?:
     | T
     | {
+        type?: T;
         simpleHeading?: T;
+        backgroundMedia?: T;
+        title?: T;
+        description?: T;
+        primaryButton?:
+          | T
+          | {
+              enabled?: T;
+              text?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+            };
+        secondaryButton?:
+          | T
+          | {
+              enabled?: T;
+              text?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+            };
       };
   layout?:
     | T
@@ -1554,6 +1665,10 @@ export interface TitleWithSeparatorBlockSelect<T extends boolean = true> {
   noBoxing?: T;
   headingLevel?: T;
   center?: T;
+  blockAlignment?: T;
+  singleBlockWidth?: T;
+  complementaryImage?: T;
+  imagePosition?: T;
   items?:
     | T
     | {

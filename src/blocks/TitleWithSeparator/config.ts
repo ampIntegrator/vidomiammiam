@@ -48,6 +48,56 @@ export const TitleWithSeparator: Block = {
       defaultValue: false,
     },
     {
+      name: 'blockAlignment',
+      type: 'select',
+      label: 'Block Alignment (for single block only)',
+      defaultValue: 'center',
+      options: [
+        { label: 'Left', value: 'left' },
+        { label: 'Center', value: 'center' },
+        { label: 'Right', value: 'right' },
+      ],
+      admin: {
+        description: 'Choose alignment when there is only one content block',
+      },
+    },
+    {
+      name: 'singleBlockWidth',
+      type: 'select',
+      label: 'Single Block Width',
+      defaultValue: 'col-lg-8',
+      options: [
+        { label: '50% (col-lg-6)', value: 'col-lg-6' },
+        { label: '66% (col-lg-8)', value: 'col-lg-8' },
+      ],
+      admin: {
+        description: 'Choose width when there is only one content block',
+      },
+    },
+    {
+      name: 'complementaryImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Complementary Image',
+      admin: {
+        description:
+          'Optional image to fill the remaining space when single block width is set. Will be displayed as background.',
+      },
+    },
+    {
+      name: 'imagePosition',
+      type: 'select',
+      label: 'Image Position',
+      defaultValue: 'right',
+      options: [
+        { label: 'Left of content', value: 'left' },
+        { label: 'Right of content', value: 'right' },
+      ],
+      admin: {
+        description: 'Choose whether the complementary image appears on the left or right',
+      },
+    },
+    {
       name: 'items',
       type: 'array',
       required: true,

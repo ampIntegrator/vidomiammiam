@@ -78,7 +78,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <RenderHero {...hero} simpleHeading={hero.simpleHeading || undefined} pageTitle={title} />
+      <RenderHero hero={hero} pageTitle={title} />
       <RenderBlocks blocks={layout} />
     </main>
   )
