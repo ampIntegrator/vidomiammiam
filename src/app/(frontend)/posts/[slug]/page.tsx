@@ -16,7 +16,6 @@ import { formatDate } from '@/utilities/formatDate'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PostSummary } from '@/components/PostSummary/Component.client'
-import '../posts.scss'
 import '@/blocks/BlogPostsGrid/blogPostsGrid.scss'
 
 export async function generateStaticParams() {
@@ -60,7 +59,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   return (
     <>
-      <article style={{ '--post-main-color': 'var(--color-primary)' } as React.CSSProperties}>
+      <article>
         <PageClient />
 
         {/* Allows redirects for valid pages too */}
@@ -72,16 +71,14 @@ export default async function Post({ params: paramsPromise }: Args) {
           <div className="row g-4">
             <aside className="col-md-3 col-lg-4">
               <div className="position-sticky" style={{ top: '80px' }}>
-                <div className="box">
-                  <span className={`text-${mainColor} fw-600 fs5 mb-2 d-block`}>
-                    Sommaire de l&apos;article
-                  </span>
+                <div className="infraBox">
+                  <span className={`summaryTitle`}>Sommaire de l&apos;article</span>
                   <PostSummary />
                 </div>
               </div>
             </aside>
-            <div className="col-md-9 col-lg-8">
-              <h1 className="fs-1 mb-1 text-white">{post.title}</h1>
+            <div className="col-md-9 col-lg-8 pb-5">
+              <h1 className="fs-1 mb-1 ">{post.title}</h1>
               <small className="metadata d-block mb-3">
                 Posté le <span>{formatDate(post.publishedAt)}</span>
               </small>
@@ -108,7 +105,7 @@ export default async function Post({ params: paramsPromise }: Args) {
               {post.heroImage && typeof post.heroImage === 'object' && (
                 <Media resource={post.heroImage} className="w-100 mb-4 roundedImg" />
               )}
-              <div className="box postContent">
+              <div className="infraBox postContent">
                 <RichText data={post.content} enableGutter={false} enableProse={false} />
               </div>
             </div>

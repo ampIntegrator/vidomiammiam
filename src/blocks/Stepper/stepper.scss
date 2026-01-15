@@ -1,24 +1,12 @@
-.stepper {
-    border-radius: $mainBR;
-    padding: 24px;
-    display: block;
-    background-color: $black;
+.stepperBox{
+border-radius: $mainBR;
+padding: 24px;
+background-color: white !important;
 
-    &.transparent{
-        display: block;
-        padding: 0;
-        background-color: transparent;
-        width: 100%;
-        .olStepper{
-            .stepperItem{
-                &.active{
-                    span{
-                        background-color: $dark !important;
-                    }
-                }
-            }
-        }
-    }
+
+}
+.stepper {
+
 
     &.center{
 
@@ -45,13 +33,13 @@
     .stepperTitle {
         font-weight: 600;
         font-size: 26px;
-        color: $white;
+        color: $ink;
     }
 
     .stepperDesc {
         font-size: 18px;
         margin-bottom: 0;
-        color: $white;
+        color: $ink;
         max-width: 640px;
     }
 
@@ -71,8 +59,8 @@
             justify-content: center;
 
             i {
-                font-size: 32px;
-                color: $white;
+                font-size: 40px;
+                color: $primary;
             }
         }
 
@@ -90,12 +78,12 @@
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;
-                background-color: $white;
-                color: $dark;
+                background-color: $secondary;
+                color: white;
                 margin: 0 auto;
                 font-weight: 600;
                 font-size: 18px;
-                content: "\f4e0";
+                content: "\f4ec";
                 font-family: Nucleo;
             }
 
@@ -105,7 +93,7 @@
                     content: "";
                     height: 2px;
                     min-width: 40px;
-                    background-color: $white;
+                    background-color: $pink;
                 }
             }
 
@@ -121,12 +109,12 @@
 
             &.active {
                 &:before {
-                    color: $dark;
+                    color: $pink;
                     position: relative;
                     z-index: 1;
-                    width: 26px;
-                    height: 26px;
-                    background-color: $white;
+                    width: 30px;
+                    height: 30px;
+                    background-color: rgba($secondary, .2);
                 }
 
                 position: relative;
@@ -138,83 +126,30 @@
                     width: 40px;
                     height: 40px;
                     border-radius: 50%;
-                    border: 2px solid $white;
-                    background-color: $black;
-                    left: -7px;
+                    border: 1px solid $pink;
+                    background-color: white;
+                    left: -5px;
                 }
 
                 &:after {
-                    background-color: $disabledColor !important;
+                    background-color: rgba($primary, .2) !important;
                 }
             }
 
             &.active ~ .stepperItem {
                 &:before {
-                    background-color: $disabledColor;
-                    color: $white;
+                    background-color: rgba($primary, .2);
+                    color: $primary;
                     font-weight: 400 !important;
                 }
 
                 &:after {
-                    background-color: $disabledColor !important;
+                    background-color: rgba($primary, .2)  !important;
                 }
             }
         }
     }
 
-    // Boucle des variantes de couleur
-    @each $name, $color in $main-colors {
-        &.color#{to-upper-case(str-slice($name, 1, 1))}#{str-slice($name, 2)} {
-
-            .stepperTitle {
-                color: $color;
-            }
-
-            .olStepper.completed i {
-                color: $color;
-            }
-
-            .stepperItem {
-                &:before {
-                    background-color: $color;
-                    color: $white;
-                }
-
-                &:after {
-                    background-color: $color !important;
-                }
-            }
-
-            .stepperItem.active {
-                &:before {
-                    background-color: $white;
-                    color: $color !important;
-                }
-
-                span {
-                    border-color: $color;
-                }
-
-                &:after {
-                    background-color: $disabledColor !important;
-                }
-            }
-        }
-    }
-    // Exception pour Success et Warning : texte en dark
-    &.colorOrange,
-    &.colorSuccess,
-    &.colorWarning {
-        // Items validés (avant .active) : icône/texte en dark
-        .stepperItem:before {
-            color: $dark !important;
-        }
-
-        // Item actif : texte en dark (au lieu de la couleur)
-        .stepperItem.active:before {
-            color: $dark !important;
-        }
-    }
 }
 
 .formFooter{
@@ -242,21 +177,4 @@
         display: block;
     }
 
-    // Color filter variants
-    @each $name, $color in $main-colors {
-        &.color#{to-upper-case(str-slice($name, 1, 1))}#{str-slice($name, 2)} {
-            position: relative;
-
-            &::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba($color, 0.3);
-                pointer-events: none;
-            }
-        }
-    }
 }

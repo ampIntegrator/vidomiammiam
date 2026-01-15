@@ -8,7 +8,6 @@ import { Media } from '@/components/Media'
 import './stepper.scss'
 
 export const StepperBlock: React.FC<StepperBlockType> = ({
-  color = 'primary',
   centered = false,
   layoutElements,
   steps,
@@ -26,17 +25,11 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
     return null
   }
 
-  // Convert color to PascalCase for CSS class
-  const colorValue = color || 'primary'
-  const colorClass = `color${colorValue.charAt(0).toUpperCase() + colorValue.slice(1)}`
-
   // Calculate image column width based on stepper width
   const imageWidth = stepperWidth === '6' ? '6' : '4'
 
   // Generate classes for stepper
-  const stepperClasses = ['stepper', 'transparent', colorClass, centered ? 'center' : '']
-    .filter(Boolean)
-    .join(' ')
+  const stepperClasses = ['stepper', centered ? 'center' : ''].filter(Boolean).join(' ')
 
   // Render title
   const renderTitle = () => {
@@ -192,12 +185,12 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
       const showButton = buttonText && buttonUrl
 
       return (
-        <div className="text-center my-5">
-          <p className="text-white mb-4" style={{ whiteSpace: 'pre-line' }}>
+        <div className="text-center my-4">
+          <p className="mb-4" style={{ whiteSpace: 'pre-line' }}>
             {message}
           </p>
           {showButton && (
-            <a href={buttonUrl} className={`btn btn-${colorValue}`}>
+            <a href={buttonUrl} className="btn btn-outline-secondary btn-sm rounded-pill">
               {buttonText}
             </a>
           )}
@@ -221,7 +214,6 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
             onValidate={isLastStep ? undefined : handleStepValidation}
             onSubmitSuccess={isLastStep ? handleFinalSubmit : undefined}
             isLastStep={isLastStep}
-            overrideColor={color}
             hideButtons={true}
           />
         </div>
@@ -237,7 +229,6 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
             onValidate={isLastStep ? undefined : handleStepValidation}
             onSubmitSuccess={isLastStep ? handleFinalSubmit : undefined}
             isLastStep={isLastStep}
-            overrideColor={color}
             hideButtons={true}
           />
         </div>
@@ -275,14 +266,28 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
     )
   }
 
+  // Handle manual validation for last step
+  const handleManualValidation = () => {
+    const currentStep = steps[activeStep]
+
+    // If it's text content (no form), just submit with empty data
+    if (currentStep.contentType === 'text' || !currentStep.contentType) {
+      handleFinalSubmit({})
+      return
+    }
+
+    // For form types, trigger form submission by dispatching submit event
+    const forms = document.querySelectorAll('.stepDetails form')
+    if (forms.length > 0) {
+      const lastForm = forms[forms.length - 1] as HTMLFormElement
+      lastForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
+    }
+  }
+
   // Render stepper content column
   const renderStepperContent = () => {
     const isFirstStep = activeStep === 0
     const isLastStep = activeStep === steps.length - 1
-
-    // Light colors need dark text, dark colors need white text
-    const lightColors = ['success', 'warning', 'info']
-    const textColorClass = lightColors.includes(colorValue) ? 'text-dark' : 'text-white'
 
     return (
       <>
@@ -296,19 +301,27 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
               {!isFirstStep && (
                 <button
                   type="button"
-                  className={`btn btn-sm btn-${colorValue} ${textColorClass}`}
+                  className="btn btn-sm btn-outline-secondary"
                   onClick={() => setActiveStep(activeStep - 1)}
                 >
                   Précédent
                 </button>
               )}
-              {!isLastStep && (
+              {!isLastStep ? (
                 <button
                   type="button"
-                  className={`btn btn-sm btn-${colorValue} ${textColorClass}`}
+                  className="btn btn-sm btn-secondary text-white"
                   onClick={() => setActiveStep(activeStep + 1)}
                 >
                   Suivant
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-sm btn-secondary text-white"
+                  onClick={handleManualValidation}
+                >
+                  Valider
                 </button>
               )}
             </div>
@@ -323,12 +336,16 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
       <div className="row g-4">
         {stepperPosition === 'left' ? (
           <>
-            <div className={`col-lg-${stepperWidth}`}>{renderStepperContent()}</div>
+            <div className={`col-lg-${stepperWidth}`}>
+              <div className="stepperBox">{renderStepperContent()}</div>
+            </div>
             <div className={`col-lg-${imageWidth}`}>{renderStickyImage()}</div>
           </>
         ) : (
           <>
-            <div className={`col-lg-${imageWidth}`}>{renderStickyImage()}</div>
+            <div className={`col-lg-${imageWidth}`}>
+              <div className="stepperBox">{renderStickyImage()}</div>
+            </div>
             <div className={`col-lg-${stepperWidth}`}>{renderStepperContent()}</div>
           </>
         )}

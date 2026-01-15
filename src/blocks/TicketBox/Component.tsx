@@ -43,11 +43,6 @@ export const TicketBoxBlock: React.FC<TicketBoxBlockProps> = ({
     return null
   }
 
-  // Hard-coded to primary
-  const getColorClass = (color?: string) => {
-    return 'colorPrimary'
-  }
-
   // Determine alignment class for single ticket
   const alignmentMap = {
     left: 'justify-content-start',
@@ -67,7 +62,6 @@ export const TicketBoxBlock: React.FC<TicketBoxBlockProps> = ({
     >
       <div className={`row g-4 ${alignmentClass}`}>
         {tickets.map((ticket, index) => {
-          const colorClass = getColorClass('primary')
           const isLeftTicket = index === 0
           const ticketAnimationClass = isSingleTicket
             ? 'ticket-single'
@@ -77,10 +71,8 @@ export const TicketBoxBlock: React.FC<TicketBoxBlockProps> = ({
 
           return (
             <div key={index} className={`col-lg-6 ${ticketAnimationClass}`}>
-              <Link href={ticket.link || '#'} className={`ticket p-2 flexCSB w-100 ${colorClass}`}>
-                {ticket.icon && (
-                  <i className={`icon ${ticket.icon} fs-2 animate-icon`}></i>
-                )}
+              <Link href={ticket.link || '#'} className={`ticket p-2 flexCSB w-100`}>
+                {ticket.icon && <i className={`icon ${ticket.icon} fs-2 animate-icon`}></i>}
                 {ticket.text && (
                   <p className="flex-grow-1 px-3 text-left animate-text">{ticket.text}</p>
                 )}

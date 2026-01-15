@@ -769,6 +769,9 @@ export interface TabsBlock {
  * via the `definition` "StepperBlock".
  */
 export interface StepperBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
   centered?: boolean | null;
   image: number | Media;
   stepperWidth: '8' | '6';
@@ -1795,6 +1798,9 @@ export interface TabsBlockSelect<T extends boolean = true> {
  * via the `definition` "StepperBlock_select".
  */
 export interface StepperBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
   centered?: T;
   image?: T;
   stepperWidth?: T;

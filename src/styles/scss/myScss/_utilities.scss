@@ -101,7 +101,8 @@ p {
 }
 
 .roundedImg {
-    border-radius: 16px
+    border-radius: $mainBR;
+    overflow: hidden;
 }
 
 .fw-semibold {

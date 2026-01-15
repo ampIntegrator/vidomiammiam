@@ -13,17 +13,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 }) => {
   return (
     <div className={className || ''}>
-      <pre
-        style={{
-          backgroundColor: 'var(--color-black)',
-          color: 'var(--color-light)',
-          padding: '1rem',
-          borderRadius: '0px',
-          overflowX: 'auto',
-          border: '1px solid var(--post-main-color)',
-          margin: '1.5rem 0',
-        }}
-      >
+      <pre>
         <code className={`language-${language}`}>{code}</code>
       </pre>
     </div>

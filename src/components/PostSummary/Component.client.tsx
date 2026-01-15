@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import '@/components/PostSummary/postSummary.scss'
 
 interface HeadingItem {
   id: string

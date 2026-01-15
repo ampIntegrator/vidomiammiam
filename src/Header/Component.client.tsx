@@ -19,7 +19,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, identity }) =>
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  // Initialize isScrolled based on actual scroll position to avoid flash on refresh
+  const [isScrolled, setIsScrolled] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop
+    return scrollPosition > 15
+  })
   const [activeMenuIndex, setActiveMenuIndex] = useState<number | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [bannerClosed, setBannerClosed] = useState(false)
@@ -114,11 +119,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, identity }) =>
       handleScroll()
     }
 
+    // Initial check - run immediately on mount
+    handleScroll()
+
     window.addEventListener('scroll', handleScroll)
     window.addEventListener('resize', handleResize)
-
-    // Initial check
-    handleScroll()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)

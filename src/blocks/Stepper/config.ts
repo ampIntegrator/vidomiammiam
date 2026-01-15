@@ -1,9 +1,11 @@
 import type { Block } from 'payload'
+import { blockStylingFields } from '@/fields/blockStyling'
 
 export const Stepper: Block = {
   slug: 'stepper',
   interfaceName: 'StepperBlock',
   fields: [
+    ...blockStylingFields,
     {
       name: 'centered',
       type: 'checkbox',

@@ -3,69 +3,19 @@ form {
         display: block;
         position: relative;
         overflow: hidden;
-        &.inputField{
-            label{
-                position: absolute;
-                height: 100%;
-                top: 0;
-                left: 0;
-                transition: $trans;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                padding: 0 8px;
-            }
-            input{
-                &:not(:placeholder-shown),
-                &:focus,
-                &:active{
-                    + label{
-                        left: -100%;
-                        opacity: 0 !important;
-                    }
-                }
-            }
-        }
-        &.withText{
-            label{
-                position: absolute;
-                height: 44px;
-                width: 100%;
-                top: 0;
-                left: 0;
-                transition: $trans;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                padding: 0 8px;
-            }
-            textarea{
-                &:not(:placeholder-shown),
-                &:focus,
-                &:active{
-                    + label{
-                        left: -100%;
-                        opacity: 0 !important;
-                    }
-                }
-            }
-        }
-
-        &:not(:last-child) {
-            margin-bottom: 16px;
-        }
 
         input:not([type="radio"]):not([type="checkbox"]),
         textarea {
             border: 0;
             display: block;
-            background-color: $black;
+            background-color: rgba($primary, .1) ;
+            border-bottom: 2px solid rgba($primary, .4);
             border-radius: 0;
             width: 100%;
             outline: none !important;
             box-shadow: none !important;
             padding: 0 8px;
-            color: $white;
+            color: $ink;
             overflow: hidden;
             transition: $trans;
 
@@ -80,16 +30,78 @@ form {
             }
 
             // Override autocomplete styles for all browsers
-            &:-webkit-autofill,
-            &:-webkit-autofill:hover,
-            &:-webkit-autofill:focus,
-            &:-webkit-autofill:active {
-                -webkit-box-shadow: 0 0 0 1000px $black inset !important;
-                -webkit-text-fill-color: $white !important;
-                box-shadow: 0 0 0 1000px $black inset !important;
-                transition: background-color 5000s ease-in-out 0s;
+            // &:-webkit-autofill,
+            // &:-webkit-autofill:hover,
+            // &:-webkit-autofill:focus,
+            // &:-webkit-autofill:active {
+            //     -webkit-box-shadow: 0 0 0 1000px $black inset !important;
+            //     -webkit-text-fill-color: $white !important;
+            //     box-shadow: 0 0 0 1000px $black inset !important;
+            //     transition: background-color 5000s ease-in-out 0s;
+            // }
+        }
+
+        &.inputField {
+            label {
+                position: absolute;
+                height: 100%;
+                top: 0;
+                left: 0;
+                transition: $trans;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 0 8px;
+                color: rgba($ink, .6);
+            }
+
+            input {
+
+                &:not(:placeholder-shown),
+                &:focus,
+                &:active {
+                    border-bottom-color: rgba($primary, 1) !important;
+
+                    +label {
+                        left: -100%;
+                        opacity: 0 !important;
+                    }
+                }
             }
         }
+
+        &.withText {
+            label {
+                position: absolute;
+                height: 44px;
+                width: 100%;
+                top: 0;
+                left: 0;
+                transition: $trans;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 0 8px;
+            }
+
+            textarea {
+
+                &:not(:placeholder-shown),
+                &:focus,
+                &:active {
+                    +label {
+                        left: -100%;
+                        opacity: 0 !important;
+                    }
+                }
+            }
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+
 
         input:not([type="radio"]):not([type="checkbox"]) {
             height: 46px;
@@ -98,7 +110,7 @@ form {
         }
 
         textarea {
-            height: 100px;
+            min-height: 100px;
             padding: 8px;
 
             &::placeholder {
@@ -130,17 +142,20 @@ form {
 
     label {
         font-weight: 500;
-        color: $white;
-        height: 44px;
+        color: $ink;
+        height: 46px;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         cursor: pointer;
         transition: $trans;
+        background-color: rgba($primary, .1);
+        padding: 0 8px;
+        width: 100%;
         &::before {
-            background-color: $black;
+            background-color: rgba($primary, .4);
             border-radius: 4px;
-            content: "\f709";
+            content: "\f4ec";
             font-weight: 600;
             font-family: 'Nucleo';
             display: flex;
@@ -150,7 +165,7 @@ form {
             min-width: 18px;
             max-width: 18px;
             height: 18px;
-            color: $black;
+            color: transparent;
             transition: $trans;
             font-size: 12px;
         }
@@ -158,75 +173,14 @@ form {
 
     input {
         display: none !important;
-    }
-}
-
-
-// Boucle pour générer toutes les variantes de couleurs
-form {
-    @each $name, $color in $main-colors {
-        &.color#{$name} {
-
-            // Titres de formulaire prennent la couleur
-            .formTitle {
-                color: $color !important;
-                transition: $trans;
-                font-size: 24px;
-                margin-bottom: 16px;
-                
-            }
-
-            fieldset {
-                &.withText,
-                &.inputField{
-                    label{
-                        color: $color;
-                    }
-                    border-bottom: 2px solid rgba($color, 0.4);
-                }
-                &:focus-within,
-                &:focus,
-                &:active {
-                    border-bottom-color: rgba($color, 1);
-                }
-
-            }
-
-            .inputCheckBox{
-                input{
-                    &:checked{
-                        + label{
-                            &:before{
-                                background-color: $color !important;
-                                color: $white
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Bouton submit prend le background de la couleur
-            .btnSubmit {
-                background-color: $color !important;
-                color: $white !important;
-                transition: $trans;
-                &:hover {
-                    opacity: 0.8;
+        &:checked{
+            + label{
+                color: $primary;
+                &:before{
+                    background-color: $primary !important;
+                    color: white
                 }
             }
         }
-    }
-
-    // Exception pour colorSuccess et colorWarning : texte en dark sur le bouton
-    &.colorSuccess,
-    &.colorWarning {
-        .btnSubmit {
-            color: $dark !important;
-        }
-            input:checked+label.checkableLabel {
-        &::before {
-            color: $dark !important;
-        }
-    }
     }
 }

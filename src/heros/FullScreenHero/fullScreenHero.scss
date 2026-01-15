@@ -103,30 +103,56 @@
 body{
   &.with-heroFW{
     padding-top: 0;
-    header{
-      background-color: transparent;
-      transition: $trans; 
-      &:hover{
-        background-color: rgba(black, .4);
-      }
-      .nav-link{
-        color: white;
-        i:before{
-          color: white !important
+    &:not(.is-scrolled){
+      header{
+        background-color: transparent;
+        transition: $trans;
+        &:hover{
+          background-color: rgba(black, .4);
         }
-      }
-      .underMenu{
-        .subMenuTitle,
-        span, 
-        strong{
-          color: white !important
-        }
-
-      }
-
-      .navbar-brand{
-        span{
+        .nav-link{
           color: white;
+          i:before{
+            color: white !important
+          }
+        }
+        .underMenu{
+          .subMenuTitle,
+          span,
+          strong{
+            color: white !important
+          }
+
+        }
+
+        .navbar-brand{
+          span{
+            color: white;
+          }
+          .logo{
+            filter: brightness(0) saturate(100%) invert(100%);
+          }
+        }
+      }
+    }
+
+    // When scrolled, restore normal header
+    &.is-scrolled{
+      header{
+        background-color: white;
+        .nav-link{
+          color: inherit;
+          i:before{
+            color: $secondary !important
+          }
+        }
+        .navbar-brand{
+          span{
+            color: inherit;
+          }
+          .logo{
+            filter: brightness(0) saturate(100%) invert(43%) sepia(92%) saturate(2752%) hue-rotate(323deg) brightness(106%) contrast(101%);
+          }
         }
       }
     }
