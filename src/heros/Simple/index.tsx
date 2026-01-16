@@ -6,20 +6,13 @@ interface SimpleHeroProps {
   pageTitle?: string
 }
 
-export const SimpleHero: React.FC<SimpleHeroProps> = ({
-  simpleHeading,
-  pageTitle,
-}) => {
+export const SimpleHero: React.FC<SimpleHeroProps> = ({ simpleHeading, pageTitle }) => {
   const heading = simpleHeading || pageTitle || ''
 
   return (
     <section className="topOfPage pb-5">
       <div className="container py-4">
-        <h1
-          className="text-center m-0"
-          style={{ color: 'var(--color-primary)' }}
-          dangerouslySetInnerHTML={{ __html: heading }}
-        />
+        <h1 className="text-center m-0" dangerouslySetInnerHTML={{ __html: heading }} />
       </div>
     </section>
   )

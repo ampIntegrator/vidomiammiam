@@ -9,18 +9,24 @@ type FWBannerBlockProps = FWBannerBlockType & {
 }
 
 export const FWBannerBlock: React.FC<FWBannerBlockProps> = ({
-  height = 'normal',
+  backgroundColor,
+  paddingTop,
+  paddingBottom,
   titleTag = 'h2',
   title,
   description,
   ctaText,
   ctaUrl,
 }) => {
-  // Hard-coded to primary
-  const bgClass = 'bg-primary'
-  const heightClass = height
-  const textColorClass = 'text-white'
-  const separatorBgClass = 'bg-white'
+  const bgClass = backgroundColor || 'bg-primary'
+
+  // Check if background is light (green or ivory)
+  const isLightBackground = backgroundColor === 'bg-green' || backgroundColor === 'bg-ivory'
+
+  // Apply different colors based on background
+  const textColorClass = isLightBackground ? 'text-ink' : 'text-white'
+  const separatorBgClass = isLightBackground ? 'bg-secondary' : 'bg-white'
+  const buttonClass = isLightBackground ? 'btn-secondary' : `btn-outline ${textColorClass}`
 
   // Dynamic heading tag
   const TitleTag = titleTag as React.ElementType
@@ -29,7 +35,7 @@ export const FWBannerBlock: React.FC<FWBannerBlockProps> = ({
   const showCta = ctaText && ctaUrl
 
   return (
-    <div className={`fwBanner ${bgClass} withText ${heightClass}`}>
+    <div className={`fwBanner ${bgClass} withText ${paddingTop || ''} ${paddingBottom || ''}`}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-6 col-md-8">
@@ -38,7 +44,7 @@ export const FWBannerBlock: React.FC<FWBannerBlockProps> = ({
               <div className={`separator ${separatorBgClass}`}></div>
               <p className={textColorClass}>{description}</p>
               {showCta && (
-                <Link href={ctaUrl} className={`btn btn-outline ${textColorClass}`}>
+                <Link href={ctaUrl} className={`btn ${buttonClass}`}>
                   {ctaText}
                 </Link>
               )}

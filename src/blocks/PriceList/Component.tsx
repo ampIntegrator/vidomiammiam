@@ -5,7 +5,7 @@ import type { PriceListBlock as PriceListBlockType, Media } from '@/payload-type
 import Link from 'next/link'
 import './priceList.scss'
 
-export const PriceListBlock: React.FC<PriceListBlockType> = ({ items }) => {
+export const PriceListBlock: React.FC<PriceListBlockType> = ({ items, premiumCard, premiumRibbonText }) => {
   const [isVisible, setIsVisible] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -87,14 +87,24 @@ export const PriceListBlock: React.FC<PriceListBlockType> = ({ items }) => {
           // Check if URL is internal or external
           const isInternalLink = item.ctaUrl?.startsWith('/')
 
+          // Check if this card is the premium one (index + 1 to match 1-4 selection)
+          const isPremium = premiumCard && premiumCard !== 'none' && parseInt(premiumCard) === index + 1
+          const premiumClass = isPremium ? 'premium' : ''
+
           return (
             <div key={index} className={`${colClass} ${getCardAnimationClass(index)}`}>
-              <div className={`card overflow-hidden shadow`}>
+              <div className={`card overflow-hidden shadow ${premiumClass}`}>
                 {/* Thumbnail */}
                 <div
                   className="card-thumbnail overflow-hidden animate-thumbnail"
                   style={{ backgroundImage: `url(${thumbnailUrl})` }}
-                />
+                >
+                  {isPremium && premiumRibbonText && (
+                    <div className="premium-ribbon">
+                      <span>{premiumRibbonText}</span>
+                    </div>
+                  )}
+                </div>
 
                 {/* Header */}
                 <div className="card-header animate-header">

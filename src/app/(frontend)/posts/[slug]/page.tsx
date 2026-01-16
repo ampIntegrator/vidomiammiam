@@ -78,7 +78,7 @@ export default async function Post({ params: paramsPromise }: Args) {
               </div>
             </aside>
             <div className="col-md-9 col-lg-8 pb-5">
-              <h1 className="fs-1 mb-1 ">{post.title}</h1>
+              <h1 className="fs-2 mb-1 ">{post.title}</h1>
               <small className="metadata d-block mb-3">
                 Posté le <span>{formatDate(post.publishedAt)}</span>
               </small>

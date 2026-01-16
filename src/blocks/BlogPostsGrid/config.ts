@@ -1,9 +1,11 @@
 import type { Block } from 'payload'
+import { blockStylingFields } from '@/fields/blockStyling'
 
 export const BlogPostsGrid: Block = {
   slug: 'blogPostsGrid',
   interfaceName: 'BlogPostsGridBlock',
   fields: [
+    ...blockStylingFields,
     {
       name: 'title',
       type: 'text',

@@ -27,7 +27,7 @@ $container-padding-x: 32px;
 
 // Couleurs de base
 $beige       : #ede0d4;
-$white       : #f8f0e5;
+$white       : #fff;
 $black       : #000000;
 $footer-bg   : #573c27;
 $text-dark   : #212121;
@@ -70,19 +70,6 @@ $accordion-border-radius: 10px;
 //tabs
 $nav-tabs-border-radius: 0px;
 
-// Map des 7 couleurs principales pour les composants
-$main-colors: (
-  'primary': $primary,
-  'danger': $danger,
-  'success': $success,
-  'warning': $warning,
-  'teal': $teal,
-  'purple': $purple,
-  'info': $info,
-  'white' : $white
-);
-
-
 .btn-Success{
     color: $dark !important;
     i{
@@ -97,3 +84,19 @@ $main-colors: (
 .bg-green{
   background-color: $teal;
 }
+
+// ========================================
+// Variables natives Bootstrap pour .btn
+// ========================================
+
+// Padding des boutons (par défaut)
+$btn-padding-y:               10px;
+$btn-padding-x:               20px;
+
+// Font size et line-height
+$btn-font-size:               18px;
+$btn-line-height:             1.25;
+
+// Font weight
+$btn-font-weight:             500;
+

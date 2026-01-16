@@ -152,6 +152,26 @@
             background-image: inherit;
             transition: transform 0.6s $cubiTr;
         }
+
+        .premium-ribbon {
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            width: 200px;
+            background-color: $pink;
+            padding: 6px 0 6px 20px;
+            text-align: center;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+
+            span {
+                color: white;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 1;
+            }
+        }
     }
 
     .card-header {
@@ -164,6 +184,7 @@
         .card-category{
             text-align: center;
             background-color: white;
+            transition: $trans;
             span{
                 font-size: 16px;
                 text-transform: uppercase;
@@ -172,6 +193,7 @@
             }
         }
         .card-title{
+            transition: $trans;
             min-height: 84px;
             display: flex;
             align-items: center;
@@ -235,6 +257,7 @@
     .card-footer {
         border: 0;
         background-color: $pink;
+        transition: $trans;
         .btn{
             color: white;
             font-weight: 600;
@@ -242,53 +265,40 @@
         }
     }
 
+    &.premium{
+        .card-body,
+        .card-category{
+            background-color: $teal 
+        }
+    }
     // Hover effects with zoom animations
     &:hover {
-        .card-thumbnail::before {
+        .card-thumbnail::before,
+        .pricing-card-title {
             animation: zoomInOut 0.8s $cubiTr;
         }
-
-        .card-body .pricing-card-title {
-            animation: zoomInOut 0.8s $cubiTr;
-        }
-    }
-
-    &.cardSmall {
-        .card-body,
-        .card-footer {
-            padding-left: 6px;
-            padding-right: 6px;
-        }
-        .card-header{
-            padding: 0 !important;
-            > div span{
-                font-size: 15px !important;
+        .card-header {
+            .card-category span,
+            .card-title {
+                color: $primary !important;
             }
         }
-        .card-title {
-            font-size: 20px !important;
-            padding-left: 6px;
-            padding-right: 6px;
-        }
+        
+        .card-header{
+            .card-category,
+            .card-title{
+                background-color: $teal !important;
+            }
 
-        .pricing-card-title {
-            font-size: 18px;
-            font-weight: 600;
         }
-
-        p,
-        li {
-            font-size: 14px;
+        .card-body {
+            background-color: $teal;
         }
-
-        .card-header {
-            height: auto;
-            min-height: 90px;
-            padding-top: 6px;
-            padding-bottom: 6px;
+        .card-footer{
+            background-color: $primary !important;
         }
     }
-
+    
 }
 
 

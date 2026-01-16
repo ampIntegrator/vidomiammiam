@@ -1,10 +1,9 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import type { StepperBlock as StepperBlockType } from '@/payload-types'
 import { FormRenderer } from '@/components/FormRenderer'
 import { InlineFormRenderer } from '@/components/InlineFormRenderer'
-import { Media } from '@/components/Media'
 import './stepper.scss'
 
 export const StepperBlock: React.FC<StepperBlockType> = ({
@@ -19,7 +18,33 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
   const [activeStep, setActiveStep] = useState<number>(0)
   const [allFormData, setAllFormData] = useState<Record<string, any>>({})
   const [isCompleted, setIsCompleted] = useState<boolean>(false)
+  const [isVisible, setIsVisible] = useState<boolean>(false)
   const imageRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.disconnect()
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+      },
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   if (!steps || steps.length === 0) {
     return null
@@ -71,7 +96,10 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
           const isActive = activeStep === index
 
           return (
-            <li key={index} className={`stepperItem ${isActive ? 'active' : ''}`}>
+            <li
+              key={index}
+              className={`stepperItem ${isActive ? 'active' : ''} animate-stack-${index}`}
+            >
               <span></span>
             </li>
           )
@@ -190,7 +218,7 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
             {message}
           </p>
           {showButton && (
-            <a href={buttonUrl} className="btn btn-outline-secondary btn-sm rounded-pill">
+            <a href={buttonUrl} className="btn btn-outline-secondary  rounded-pill">
               {buttonText}
             </a>
           )}
@@ -253,16 +281,21 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
     )
   }
 
-  // Render sticky image
-  const renderStickyImage = () => {
+  // Render image
+  const renderImage = () => {
     if (!image || typeof image === 'string') {
       return null
     }
 
+    // Get image URL
+    const imageUrl = typeof image === 'object' && image !== null ? image.url : ''
+
     return (
-      <div ref={imageRef} className="stepperStickyImage" style={{ top: '80px' }}>
-        <Media resource={image} imgClassName="" />
-      </div>
+      <div
+        ref={imageRef}
+        className="stepperStickyImage"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      />
     )
   }
 
@@ -301,7 +334,7 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
               {!isFirstStep && (
                 <button
                   type="button"
-                  className="btn btn-sm btn-outline-secondary"
+                  className="btn  btn-outline-secondary"
                   onClick={() => setActiveStep(activeStep - 1)}
                 >
                   Précédent
@@ -310,7 +343,7 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
               {!isLastStep ? (
                 <button
                   type="button"
-                  className="btn btn-sm btn-secondary text-white"
+                  className="btn  btn-secondary text-white"
                   onClick={() => setActiveStep(activeStep + 1)}
                 >
                   Suivant
@@ -318,7 +351,7 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
               ) : (
                 <button
                   type="button"
-                  className="btn btn-sm btn-secondary text-white"
+                  className="btn  btn-secondary text-white"
                   onClick={handleManualValidation}
                 >
                   Valider
@@ -332,21 +365,21 @@ export const StepperBlock: React.FC<StepperBlockType> = ({
   }
 
   return (
-    <div className="stepperContainer">
+    <div ref={containerRef} className={`stepperContainer ${isVisible ? 'animate-in' : ''}`}>
       <div className="row g-4">
         {stepperPosition === 'left' ? (
           <>
-            <div className={`col-lg-${stepperWidth}`}>
+            <div className={`col-lg-${stepperWidth} animate-from-left`}>
               <div className="stepperBox">{renderStepperContent()}</div>
             </div>
-            <div className={`col-lg-${imageWidth}`}>{renderStickyImage()}</div>
+            <div className={`col-lg-${imageWidth} animate-from-right`}>{renderImage()}</div>
           </>
         ) : (
           <>
-            <div className={`col-lg-${imageWidth}`}>
-              <div className="stepperBox">{renderStickyImage()}</div>
+            <div className={`col-lg-${imageWidth} animate-from-left`}>{renderImage()}</div>
+            <div className={`col-lg-${stepperWidth} animate-from-right`}>
+              <div className="stepperBox">{renderStepperContent()}</div>
             </div>
-            <div className={`col-lg-${stepperWidth}`}>{renderStepperContent()}</div>
           </>
         )}
       </div>

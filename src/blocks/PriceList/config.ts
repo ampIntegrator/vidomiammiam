@@ -7,6 +7,57 @@ export const PriceList: Block = {
   fields: [
     ...blockStylingFields,
     {
+      name: 'premiumCard',
+      type: 'radio',
+      label: 'Carte Premium (Mise en avant)',
+      defaultValue: 'none',
+      options: [
+        {
+          label: 'Aucune',
+          value: 'none',
+        },
+        {
+          label: 'Carte 1',
+          value: '1',
+        },
+        {
+          label: 'Carte 2',
+          value: '2',
+        },
+        {
+          label: 'Carte 3',
+          value: '3',
+        },
+        {
+          label: 'Carte 4',
+          value: '4',
+        },
+      ],
+      admin: {
+        layout: 'horizontal',
+        description: 'Sélectionnez quelle carte doit être mise en avant avec le style premium',
+      },
+    },
+    {
+      name: 'premiumRibbonText',
+      type: 'text',
+      label: 'Texte du Ruban Premium',
+      defaultValue: 'Le plus populaire',
+      maxLength: 20,
+      admin: {
+        description: 'Texte affiché sur le ruban diagonal de la carte premium (max 20 caractères, espaces compris)',
+        condition: (data, siblingData) => {
+          return siblingData.premiumCard && siblingData.premiumCard !== 'none'
+        },
+      },
+      validate: (value: string) => {
+        if (value && value.length > 20) {
+          return `Le texte ne peut pas dépasser 20 caractères (actuellement: ${value.length})`
+        }
+        return true
+      },
+    },
+    {
       name: 'items',
       type: 'array',
       label: 'Price Cards',

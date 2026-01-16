@@ -141,7 +141,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, identity }) =>
           <div id="banniere" className="bg-secondary">
             <div className="container d-flex justify-content-between">
               <div className="banniere d-flex">
-                {data.banner.icon && <i className={`text-white icon ${data.banner.icon}`}></i>}
+                {data.banner.icon && <i className={`icon ${data.banner.icon}`}></i>}
                 {data.banner.text && <p className="m-0">{data.banner.text}</p>}
               </div>
               <div className="ctaBanniere">

@@ -16,6 +16,9 @@ export const BlogPostsGrid: React.FC<Props> = async ({
   layout = 'normal',
   rowsCount = '2',
   category,
+  backgroundColor,
+  paddingTop,
+  paddingBottom,
 }) => {
   const mainColor = 'primary'
   const payload = await getPayload({ config: configPromise })
@@ -50,6 +53,9 @@ export const BlogPostsGrid: React.FC<Props> = async ({
       centerTitle={centerTitle}
       layout={layout}
       mainColor={mainColor}
+      backgroundColor={backgroundColor}
+      paddingTop={paddingTop}
+      paddingBottom={paddingBottom}
       posts={posts.docs}
     />
   )

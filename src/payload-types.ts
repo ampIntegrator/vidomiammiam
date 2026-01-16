@@ -163,7 +163,15 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  hero: {
+  /**
+   * Choisissez le type de page: blocs modulaires ou HTML personnalisé
+   */
+  pageType?: ('blocks' | 'custom') | null;
+  /**
+   * Cochez pour masquer le hero et le titre de la page
+   */
+  hideHero?: boolean | null;
+  hero?: {
     type: 'simple' | 'fullScreen';
     /**
      * Optional: replaces page title. You can use <br> for line breaks.
@@ -228,25 +236,32 @@ export interface Page {
       };
     };
   };
-  layout: (
-    | IconsBoxBlock
-    | TitleFigureLongBlock
-    | FigureOnTopBlock
-    | TitleTextNoBoxingBlock
-    | TitleWithSeparatorBlock
-    | TextImageContainerBlock
-    | BoxedImageBlock
-    | PriceListBlock
-    | FAQBlock
-    | TabsBlock
-    | StepperBlock
-    | CTABlock
-    | FWBannerBlock
-    | FWImageBlock
-    | BlogPostsGridBlock
-    | LogoSliderBlock
-    | TicketBoxBlock
-  )[];
+  layout?:
+    | (
+        | IconsBoxBlock
+        | TitleFigureLongBlock
+        | FigureOnTopBlock
+        | TitleTextNoBoxingBlock
+        | TitleWithSeparatorBlock
+        | TextImageContainerBlock
+        | BoxedImageBlock
+        | PriceListBlock
+        | FAQBlock
+        | TabsBlock
+        | StepperBlock
+        | CTABlock
+        | FWBannerBlock
+        | FWImageBlock
+        | BlogPostsGridBlock
+        | LogoSliderBlock
+        | TicketBoxBlock
+        | FreeHTMLBlock
+      )[]
+    | null;
+  /**
+   * Entrez votre HTML personnalisé. Vous avez un accès complet au HTML, CSS (inline ou <style>) et JavaScript (<script>)
+   */
+  customHTML?: string | null;
   meta?: {
     title?: string | null;
     /**
@@ -690,6 +705,14 @@ export interface PriceListBlock {
   backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
   paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
   paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
+  /**
+   * Sélectionnez quelle carte doit être mise en avant avec le style premium
+   */
+  premiumCard?: ('none' | '1' | '2' | '3' | '4') | null;
+  /**
+   * Texte affiché sur le ruban diagonal de la carte premium (max 20 caractères, espaces compris)
+   */
+  premiumRibbonText?: string | null;
   items: {
     thumbnailImage: number | Media;
     category: string;
@@ -1078,7 +1101,9 @@ export interface CTABlock {
  * via the `definition` "FWBannerBlock".
  */
 export interface FWBannerBlock {
-  height: 'normal' | 'large' | 'superlarge';
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
   titleTag: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   title: string;
   description: string;
@@ -1108,6 +1133,9 @@ export interface FWImageBlock {
  * via the `definition` "BlogPostsGridBlock".
  */
 export interface BlogPostsGridBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
   /**
    * Titre affiché au-dessus de la grille de posts
    */
@@ -1190,6 +1218,26 @@ export interface TicketBoxBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ticketBox';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FreeHTMLBlock".
+ */
+export interface FreeHTMLBlock {
+  backgroundColor?: ('bg-primary' | 'bg-green' | 'bg-ivory') | null;
+  paddingTop?: ('pt-0' | 'pt-3' | 'pt-4' | 'pt-5' | 'pt-6') | null;
+  paddingBottom?: ('pb-0' | 'pb-3' | 'pb-4' | 'pb-5' | 'pb-6') | null;
+  /**
+   * Cochez pour neutraliser la largeur maximale du container (100% au lieu de 1320px)
+   */
+  fullWidth?: boolean | null;
+  /**
+   * Entrez votre HTML personnalisé. Disponible dans <div class="freeContainer">
+   */
+  htmlContent: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'freeHTML';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1485,6 +1533,8 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
+  pageType?: T;
+  hideHero?: T;
   hero?:
     | T
     | {
@@ -1546,7 +1596,9 @@ export interface PagesSelect<T extends boolean = true> {
         blogPostsGrid?: T | BlogPostsGridBlockSelect<T>;
         logoSlider?: T | LogoSliderBlockSelect<T>;
         ticketBox?: T | TicketBoxBlockSelect<T>;
+        freeHTML?: T | FreeHTMLBlockSelect<T>;
       };
+  customHTML?: T;
   meta?:
     | T
     | {
@@ -1726,6 +1778,8 @@ export interface PriceListBlockSelect<T extends boolean = true> {
   backgroundColor?: T;
   paddingTop?: T;
   paddingBottom?: T;
+  premiumCard?: T;
+  premiumRibbonText?: T;
   items?:
     | T
     | {
@@ -1917,7 +1971,9 @@ export interface CTABlockSelect<T extends boolean = true> {
  * via the `definition` "FWBannerBlock_select".
  */
 export interface FWBannerBlockSelect<T extends boolean = true> {
-  height?: T;
+  backgroundColor?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
   titleTag?: T;
   title?: T;
   description?: T;
@@ -1945,6 +2001,9 @@ export interface FWImageBlockSelect<T extends boolean = true> {
  * via the `definition` "BlogPostsGridBlock_select".
  */
 export interface BlogPostsGridBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
   title?: T;
   centerTitle?: T;
   layout?: T;
@@ -1987,6 +2046,19 @@ export interface TicketBoxBlockSelect<T extends boolean = true> {
         linkText?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FreeHTMLBlock_select".
+ */
+export interface FreeHTMLBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  fullWidth?: T;
+  htmlContent?: T;
   id?: T;
   blockName?: T;
 }

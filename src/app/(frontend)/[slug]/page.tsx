@@ -14,6 +14,7 @@ import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { SchemaMarkup } from '@/components/SchemaMarkup'
 import { getServerSideURL } from '@/utilities/getURL'
+import { CustomHTML } from '@/components/CustomHTML'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -66,8 +67,10 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout, title } = page
+  const { hero, layout, title, pageType, customHTML, hideHero } = page
   const fullUrl = `${getServerSideURL()}${url}`
+  const isCustomPage = pageType === 'custom'
+  const shouldShowHero = !hideHero
 
   return (
     <main id="main">
@@ -78,8 +81,13 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <RenderHero hero={hero} pageTitle={title} />
-      <RenderBlocks blocks={layout} />
+      {shouldShowHero && <RenderHero hero={hero} pageTitle={title} />}
+
+      {isCustomPage ? (
+        <CustomHTML html={customHTML || ''} />
+      ) : (
+        <RenderBlocks blocks={layout} />
+      )}
     </main>
   )
 }

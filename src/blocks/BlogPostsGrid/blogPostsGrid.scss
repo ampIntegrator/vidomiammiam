@@ -3,12 +3,41 @@
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 0;
-  color: $white;
+  color: $ink;
 }
 
-// Container des posts
+// Container des posts avec animations
 .postsContainer {
+  // Posts start hidden with rotation from top-left
+  .animate-post-0,
+  .animate-post-1,
+  .animate-post-2 {
+    opacity: 0;
+    transform: rotate(15deg) scale(0.95);
+    transform-origin: top left;
+    transition: none;
+  }
+
+  // When visible, trigger staggered animations
+  &.animate-in {
+    .animate-post-0 {
+      animation: fadeInScaleRotate 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    .animate-post-1 {
+      animation: fadeInScaleRotate 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.25s;
+    }
+
+    .animate-post-2 {
+      animation: fadeInScaleRotate 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.4s;
+    }
+  }
+
   .row {
+
     // Comportement carousel sur mobile/tablette
     @media (max-width: 991px) {
       overflow: hidden;
@@ -57,52 +86,30 @@
         width: 12px;
         height: 12px;
         border-radius: 6px;
-        background-color: $white;
+        background-color: rgba($pink, .6);
         cursor: pointer;
         transition: $trans;
 
-        &:hover {
-          background-color: rgba($blue, 0.3);
-        }
 
         &.active {
-          background-color: $blue;
+          background-color: $pink;
           width: 24px;
+
         }
       }
     }
   }
 
-  // Boucle pour générer les variantes de couleur pour la pagination
-  @each $name, $color in $main-colors {
-    &:has(.blogPost.color#{to-upper-case(str-slice($name, 1, 1))}#{str-slice($name, 2)}) {
-      .navigation {
-        button i {
-          color: $color;
-        }
-
-        .bullets .bullet {
-          &:hover {
-            background-color: rgba($color, 0.3);
-          }
-
-          &.active {
-            background-color: $color;
-          }
-        }
-      }
-    }
-  }
 }
 
 // Composant blogPost
 .blogPost {
-  background-color: $black;
+  background-color: white;
   border-radius: $mainBR;
   overflow: hidden;
   height: 100%;
   position: relative;
-
+  transition: $trans;
   .row {
     height: 100%;
   }
@@ -113,14 +120,19 @@
     object-fit: cover;
   }
 
+
+  small{
+    color: $secondary;
+  }
+
   .voirPlus {
-    opacity: 0.5;
     font-size: 14px;
     transition: $trans;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: $primary;
     i {
       font-size: 20px;
       transition: $trans;
@@ -128,20 +140,47 @@
   }
 
   &:hover {
-    .voirPlus {
-      opacity: 1;
+    background-color: $primary;
+    *{
+      color: white !important
+    }
+
+  }
+
+  // Titre du post
+  .postBlogTitle {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin: 4px 0;
+    height: 64px;
+    color: $ink;
+
+    span {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: inherit;
     }
   }
 
   // Variante oneCol (compact, 3 par ligne)
   &.oneCol {
     height: 220px;
-    background-color: $black;
-
+    background-color: $primary;
+    transition: $trans;
     p {
       display: none;
     }
-
+    small,
+    .voirPlus{
+      color: $pink
+    }
     .col-4 {
       position: static;
       width: 0;
@@ -159,7 +198,7 @@
 
       .postBlogTitle {
         height: 72px;
-
+        color: white !important;
         span {
           -webkit-line-clamp: 3;
         }
@@ -173,81 +212,49 @@
       z-index: 0;
       opacity: 0.5;
       transition: $trans;
+      background-color: white !important;
     }
 
     &:hover {
-      .bgi {
+      background-color: $primary !important;
+      .bgi{
         opacity: 0;
       }
+      *{
+        color: white !important
+      }
     }
   }
 
-  // Boucle pour générer toutes les variantes de couleur
-  @each $name, $color in $main-colors {
-    &.color#{to-upper-case(str-slice($name, 1, 1))}#{str-slice($name, 2)} {
+}
 
-      // Pour les blogPost normaux (sans .oneCol)
-      &:not(.oneCol) {
-        .postBlogTitle,
-        .voirPlus {
-          color: $color;
-        }
+.bg-primary{
+  .postsContainer{
+    .blogGridTitle{
+      color: white
+    }
+    .blogPost{
+      &:hover{
+        background: $pink !important
       }
-
-      // Pour les blogPost.oneCol
-      &.oneCol {
-        strong,
-        small,
-        .voirPlus {
-          color: $color;
-        }
-
-        .postBlogTitle {
-          color: $white;
-        }
-
-        &:hover {
-          background-color: $black;
-        }
+    }
+    .bullet{
+      background-color: white !important;
+      &.active{
+        background-color: $pink !important
       }
     }
   }
 }
 
-// Titre du post
-.postBlogTitle {
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.25;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  margin: 4px 0;
-  height: 64px;
-
-  span {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: inherit;
+// Keyframe for posts animation with rotation
+@keyframes fadeInScaleRotate {
+  from {
+    opacity: 0;
+    transform: rotate(15deg) scale(0.95);
   }
-}
-
-// Utilitaires
-.flexCSB {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.flexCS {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.fz14 {
-  font-size: 14px;
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
 }

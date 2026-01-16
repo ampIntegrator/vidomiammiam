@@ -19,6 +19,7 @@ import { CTA } from '../../blocks/CTA/config'
 import { BlogPostsGrid } from '../../blocks/BlogPostsGrid/config'
 import { LogoSlider } from '../../blocks/LogoSlider/config'
 import { TicketBox } from '../../blocks/TicketBox/config'
+import { FreeHTML } from '../../blocks/FreeHTML/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -73,10 +74,54 @@ export const Pages: CollectionConfig<'pages'> = {
       required: true,
     },
     {
+      name: 'pageType',
+      type: 'radio',
+      label: 'Type de Page',
+      defaultValue: 'blocks',
+      options: [
+        {
+          label: 'Page avec Blocs (Normal)',
+          value: 'blocks',
+        },
+        {
+          label: 'Page Custom (HTML Libre)',
+          value: 'custom',
+        },
+      ],
+      admin: {
+        position: 'sidebar',
+        layout: 'horizontal',
+        description: 'Choisissez le type de page: blocs modulaires ou HTML personnalisé',
+      },
+    },
+    {
+      name: 'hideHero',
+      type: 'checkbox',
+      label: 'Masquer le Hero avec titre',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Cochez pour masquer le hero et le titre de la page',
+        condition: (data, siblingData) => {
+          return data?.pageType === 'custom'
+        },
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
         {
-          fields: [hero],
+          fields: [
+            {
+              ...hero,
+              admin: {
+                ...hero.admin,
+                condition: (data, siblingData) => {
+                  return data?.pageType === 'blocks' || !data?.pageType
+                },
+              },
+            },
+          ],
           label: 'Hero',
         },
         {
@@ -102,14 +147,36 @@ export const Pages: CollectionConfig<'pages'> = {
                 BlogPostsGrid,
                 LogoSlider,
                 TicketBox,
+                FreeHTML,
               ],
               required: true,
               admin: {
                 initCollapsed: true,
+                condition: (data, siblingData) => {
+                  return data?.pageType === 'blocks' || !data?.pageType
+                },
               },
             },
           ],
           label: 'Content',
+        },
+        {
+          fields: [
+            {
+              name: 'customHTML',
+              type: 'code',
+              label: 'HTML Personnalisé',
+              admin: {
+                language: 'html',
+                description:
+                  'Entrez votre HTML personnalisé. Vous avez un accès complet au HTML, CSS (inline ou <style>) et JavaScript (<script>)',
+                condition: (data, siblingData) => {
+                  return data?.pageType === 'custom'
+                },
+              },
+            },
+          ],
+          label: 'Custom HTML',
         },
         {
           name: 'meta',

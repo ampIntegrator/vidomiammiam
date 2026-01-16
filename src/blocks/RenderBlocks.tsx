@@ -20,6 +20,7 @@ import { CTABlock } from '@/blocks/CTA/Component'
 import { BlogPostsGrid } from '@/blocks/BlogPostsGrid/Component'
 import { LogoSliderBlock } from '@/blocks/LogoSlider/Component'
 import { TicketBoxBlock } from '@/blocks/TicketBox/Component'
+import { FreeHTMLBlock } from '@/blocks/FreeHTML/Component'
 
 const blockComponents = {
   iconsBox: IconsBoxBlock,
@@ -40,10 +41,11 @@ const blockComponents = {
   blogPostsGrid: BlogPostsGrid,
   logoSlider: LogoSliderBlock,
   ticketBox: TicketBoxBlock,
+  freeHTML: FreeHTMLBlock,
 }
 
 // Define which blocks should be full width (not wrapped in .box)
-const fullWidthBlocks = ['fwBanner', 'fwImage']
+const fullWidthBlocks = ['fwBanner', 'fwImage', 'freeHTML']
 
 export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][]

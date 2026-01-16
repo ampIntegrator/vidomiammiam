@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { blockStylingFields } from '@/fields/blockStyling'
 
 export const FWBanner: Block = {
   slug: 'fwBanner',
@@ -8,18 +9,7 @@ export const FWBanner: Block = {
     plural: 'Full Width Banners',
   },
   fields: [
-    {
-      name: 'height',
-      type: 'select',
-      label: 'Banner Height',
-      required: true,
-      defaultValue: 'normal',
-      options: [
-        { label: 'Normal', value: 'normal' },
-        { label: 'Large', value: 'large' },
-        { label: 'Super Large', value: 'superlarge' },
-      ],
-    },
+    ...blockStylingFields,
     {
       name: 'titleTag',
       type: 'select',
